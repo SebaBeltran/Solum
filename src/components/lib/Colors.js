@@ -1,0 +1,9 @@
+export const gradientRedTop = "linear-gradient(to bottom, #F0404B, #DC306C)";
+export const gradientRedLeft = "linear-gradient(to left, #F0404B, #DC306C)";
+export const gradientGreyLeft = "linear-gradient(to left, #F0F0F0, #E8E8E8)";
+export const falseGradientGreyLeft = "linear-gradient(to left, red, #E8E8E8)";
+export const red = "#EF3C47";
+export const blue = "#44C4E9";
+export const lightGrey = "#E8E8E8";
+export const darkWhite = "#F0F0F0";
+export const black = "#41403F"
