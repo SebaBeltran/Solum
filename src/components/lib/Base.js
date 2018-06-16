@@ -101,6 +101,8 @@ export const ListWrapper = FlexColumn.extend`
   background-color: ${lightGrey};
   color: ${black}
   width: 400px;
+  // height: 100$;
+  overflow: scroll;
 `;
 
 export const ListItem = FlexRow.extend`
@@ -238,7 +240,7 @@ export const A = styled.a`
 export const EditIcon = ContactIcon.extend`
   position: absolute;
   right: 20px;
-  top: 20px;
+  top: 0px;
   width: auto;
   cursor: pointer;
 
@@ -305,6 +307,42 @@ export const EditInput = styled.input`
 `;
 
 
+export const SaveLink = styled(Link)`
+margin-top: 30px;
+  padding: 20px 50px;
+  border-radius: 30px;
+  border: 0;
+  background: ${black};
+  color: white;
+  transition: all 150ms ease;
+  cursor: pointer;
+  box-shadow: 0 20px 20px -10px rgba(0,0,0,0.4);
+  &:hover, &:focus {
+    background: darken(${red}, 10%);
+    outline: 0;
+    box-shadow: 0 20px 20px -50px rgba(0,0,0,1);
+    transform: translateY(2px);
+  }
+  &:active {
+    background: darken($color1, 15%);
+    box-shadow: 0 30px 30px -20px rgba(0,0,0,0.4);
+    transform: translateY(5px);
+  }
+  &:disabled {
+    cursor: auto;
+    &:hover {
+      box-shadow: 0 30px 30px -20px rgba(0,0,0,0.4);
+    }
+  }
+  &.done {
+    background: $color2;
+    animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
+`;
+
 export const SaveBtn = styled.button`
 margin-top: 30px;
   padding: 20px 50px;
@@ -338,5 +376,82 @@ margin-top: 30px;
     transform: translate3d(0, 0, 0);
     backface-visibility: hidden;
     perspective: 1000px;
+  }
+`;
+
+export const EditMenu = FlexColumn.extend`
+  width: 50px;
+  height: 40px;
+  transition: 0.3s ease-in;
+  overflow: hidden;
+  position: absolute;
+  right: 20px;
+  cursor: pointer;
+  &:hover{
+    height: 70px;
+    > div:nth-child(1){
+      opacity:0;
+    }
+    > a{
+      opacity:1;
+      &:hover{
+        color:red;
+      }
+    }
+  > a:nth-child(1){
+    top: 0;
+  }
+  > a:nth-child(2){
+    top: 40px
+
+  }  
+  }
+`;
+
+export const ThreeDots = styled.div`
+  position: absolute;
+  right: 20px;
+  width: 8px;
+  height: 8px;
+  background: ${lightGrey};
+  border-radius: 50%;
+  transition: 0.3s;
+  
+ &:before, &:after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0px;
+  background: inherit;
+  border-radius: inherit;
+  }
+
+&:before {
+  top: 14px;
+  }
+
+&:after {
+  top: 28px;
+}
+`;
+
+export const IconLink = styled(Link)`
+  opacity: 0;
+  display:flex;
+  color: inherit;
+  text-decoration: none;
+  flex-flow: row;
+  justify-content: center;
+  align-items: center;
+  // transition-delay:0.2s;
+  transition: 0.2s;
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  right: -7px;
+  > *{
+    align-self: flex-end;
+    color:${black}
   }
 `;

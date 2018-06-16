@@ -87,5 +87,6 @@ app.get("/auth/user", (req, res) =>{
 app.get("/api/:id/clients", ctlr.getClients);
 app.put("/api/clients/:id", ctlr.updateClient);
 app.post("/api/clients", ctlr.addClient);
+app.delete(`/api/clients/:id`, ctlr.deleteClient);
 
 app.listen(SERVER_PORT, ()=>console.log("Listening to port: " + SERVER_PORT ))
