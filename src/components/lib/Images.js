@@ -42,7 +42,7 @@ export const ClientLogo = Avatar.extend`
 `;
 
 export const ClientLogoBig = ClientLogo.extend`
-  margin-top: 50px;
+  margin-top: 0px;
   padding: ${props => props.pad};
   margin-bottom: ${props => props.ml};
   border: 8px solid ${lightGrey}  
@@ -51,6 +51,7 @@ export const ClientLogoBig = ClientLogo.extend`
 export const EditClientLogo = ClientLogoBig.extend`
   // margin-left: 40px;
   margin: 0;
+  
 `;
 
 

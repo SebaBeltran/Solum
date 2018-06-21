@@ -4,18 +4,19 @@ import {TagColor, ProjectTitleWrapper, ProjectItem} from "./../lib/Projects"
 import { H1, H5, Small, P  } from "./../lib/Typography";
 import {connect} from "react-redux";
 import {Route} from "react-router-dom";
-import EditProject from "./EditProject";
-import ProjectInfo from './ProjectInfo';
-import { getUser, getClients, getProjects, currentProject } from "./../../redux/reducer";
-import AddProject from './AddProject';
+// import EditTask from "./EditTask";
+import TaskInfo from './TaskInfo';
+import { getUser, getClients, getProjects, currentProject, getTasks } from "./../../redux/reducer";
+import AddTask from './AddTask';
 
 
-class Projects extends Component {
+class Tasks extends Component {
 
   componentDidMount() {
     this.props.getUser();
     this.props.getClients();
     this.props.getProjects(this.props.user.id);
+    this.props.getTasks(this.props.user.id);
   }
 
   getClientName = project_id => {
@@ -28,7 +29,7 @@ class Projects extends Component {
     let mappedProject = this.props.projects.map((project, i) => {
       const {project_id, project_name, estimated_hours, tracked_hours, start_date, end_date, color_tag} = project;
       return(
-        <StyledLink key={i} to={`/user/projects/${project_id}`} onClick={()=>{this.props.currentProject(project_id)}}>
+        <StyledLink key={i} to={`/user/tasks/${project_id}`} onClick={()=>{this.props.currentProject(project_id)}}>
         <ProjectItem  id={project_id} project={project} color={color_tag}>
           <FlexColumn>
           <Small mt="0" mb="10" ml="0px" lineH="1.9">{this.getClientName(project_id)}</Small>  
@@ -56,10 +57,10 @@ class Projects extends Component {
         </ListWrapper>
         
         <MainContent>
-          <H1>PROJECTS</H1>
-          <Route path={`/user/projects/`} component={AddProject} exact/>
-          <Route path={`/user/projects/:id`} component={ProjectInfo} exact/>
-          <Route path={`/user/projects/:id/edit`} component={EditProject} />
+          <H1>TASKS</H1>
+          <Route path={`/user/tasks/`} component={AddTask} exact/>
+          <Route path={`/user/tasks/:id`} component={TaskInfo} exact/>
+          {/* <Route path={`/user/tasks/:id/edit`} component={EditTask} /> */}
         </MainContent>   
       </MainContentWrapper>
     )
@@ -74,4 +75,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, {getUser, getClients, getProjects, currentProject})(Projects);
+export default connect(mapStateToProps, {getUser, getClients, getProjects, currentProject, getTasks})(Tasks);

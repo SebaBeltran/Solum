@@ -1,5 +1,4 @@
-import styled, {keyframes} from "styled-components";
-import {injectGlobal} from "styled-components";
+import styled, {keyframes, injectGlobal} from "styled-components";
 import {gradientRedTop, gradientRedLeft, gradientGreyLeft, falseGradientGreyLeft,red, black, blue, darkWhite, lightGrey} from "./Colors";
 import {Link} from "react-router-dom"
 
@@ -18,7 +17,6 @@ export const BodyWrapper = styled.div`
   width: 100%;
   font-size: 1em;
   line-height: 1.6;
-  font-weight: 900;
   color: ${black}
   display:flex;
   flex-flow: row
@@ -101,8 +99,6 @@ export const ListWrapper = FlexColumn.extend`
   background-color: ${lightGrey};
   color: ${black}
   width: 400px;
-  // height: 100$;
-  overflow: scroll;
 `;
 
 export const ListItem = FlexRow.extend`
@@ -151,7 +147,7 @@ export const BoxColumn = FlexColumn.extend`
   border-radius: 6px;
   align-items:center; 
 `;
-// export const AnimatedDiv = 
+
 export const ContactFront = BoxColumn.extend`
   min-width: 400px;
   position: relative;
@@ -159,10 +155,10 @@ export const ContactFront = BoxColumn.extend`
   margin: 0 auto;
   padding: 40px;
 
-  h5{
+  h4{
     line-height:1;
     font-weight: 300;
-    margin: 20px auto;
+    margin: 0px auto;
   };
   
   h6{
@@ -174,6 +170,10 @@ export const ContactFront = BoxColumn.extend`
   p {
     margin: 5px auto;
   };
+
+  div{
+    cursor:pointer;
+  }
 
 `;
 
@@ -243,6 +243,9 @@ export const EditIcon = ContactIcon.extend`
   top: 0px;
   width: auto;
   cursor: pointer;
+  &:hover{
+    color:${red}
+  }
 
 `;
 
@@ -250,32 +253,6 @@ export const AddPic = styled.input`
   display:none;
 `;
 
-export const FormWrapper = FlexRow.extend`
-width:100%;
-  div:nth-child(1){
-    margin-left: -1
-    // border-right: 1px solid ${lightGrey};
-  }
-  div:nth-child(2){
-    margin-left: -1
-  }
-  > div {
-    padding: 0 20px 10px;
-    // border: 1px solid ${lightGrey};
-  }
-`;
-
-export const InputWrapper = FlexColumn.extend` 
-  background: white;
-  transition: 1s all;
-  width:100%;
-  &:hover{
-    > input{
-      background: ${lightGrey}
-    }    
-  }
-  }
-`;
 
 export const StyledLink = styled(Link)`
   display:flex;
@@ -288,24 +265,6 @@ export const StyledLink = styled(Link)`
     align-self: flex-end;
   }
 `;
-export const EditInput = styled.input`
-  font-family: "Montserrat", sans-serif;
-  font-weight: 300;
-  width: 100%;
-  border: none;
-  padding:5px;
-  height: 60px;
-  font-size:20px;
-  transition: 0.5s;
-  border: 1px solid ${lightGrey};
-  border-radius:4px;
-  :focus{
-    border: none;
-    outline: none;
-    background: ${lightGrey};
-  }
-`;
-
 
 export const SaveLink = styled(Link)`
 margin-top: 30px;
@@ -382,14 +341,14 @@ margin-top: 30px;
 export const EditMenu = FlexColumn.extend`
   width: 50px;
   height: 40px;
-  transition: 0.3s ease-in;
+  transition: 0.3s all;
   overflow: hidden;
   position: absolute;
   right: 20px;
   cursor: pointer;
   &:hover{
     height: 70px;
-    > div:nth-child(1){
+    div:nth-child(1){
       opacity:0;
     }
     > a{
@@ -411,8 +370,8 @@ export const EditMenu = FlexColumn.extend`
 export const ThreeDots = styled.div`
   position: absolute;
   right: 20px;
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
   background: ${lightGrey};
   border-radius: 50%;
   transition: 0.3s;
@@ -428,11 +387,11 @@ export const ThreeDots = styled.div`
   }
 
 &:before {
-  top: 14px;
+  top: 10px;
   }
 
 &:after {
-  top: 28px;
+  top: 20px;
 }
 `;
 
@@ -453,5 +412,36 @@ export const IconLink = styled(Link)`
   > *{
     align-self: flex-end;
     color:${black}
+  }
+
+`;
+
+export const EditorWrapper = BoxColumn.extend`
+  min-width: 400px;
+  position: relative;
+  width: 80%;
+  margin: 0 auto;
+  padding: 40px;
+
+  h4{
+    line-height:1;
+    font-weight: 300;
+    margin: 0px auto;
+  };
+  
+  h6{
+    line-height: 1;
+    margin:0;
+    margin-bottom: 50px;
+  };
+  
+  p {
+    margin: 5px auto;
+
+  };
+
+  &:div{
+    cursor:none;
+    font-weight: 300:
   }
 `;

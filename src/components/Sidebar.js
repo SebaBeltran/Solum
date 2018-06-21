@@ -40,7 +40,15 @@ class Sidebar extends Component {
             <MenuIcon data-icon="&#xe06a;"></MenuIcon>
             <MenuText toggle={this.state.toggle}>dashboard</MenuText>
           </MenuItem>
-        </LinkWithComponent> 
+        </LinkWithComponent>
+        
+
+        <LinkWithComponent to="/user/tasks">
+          <MenuItem>
+            <MenuIcon data-icon="&#xe067;" ></MenuIcon>
+            <MenuText toggle={this.state.toggle}>tasks</MenuText>
+          </MenuItem>
+        </LinkWithComponent>
 
         <LinkWithComponent to="/user/projects">
           <MenuItem>

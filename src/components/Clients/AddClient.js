@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { ContactFront, FlexColumn, FlexRow, AddPic, FlipIn, InputWrapper, EditInput, FormWrapper, SaveBtn} from './../lib/Base';
+import { ContactFront, FlexColumn, FlexRow, AddPic, FlipIn, SaveBtn} from './../lib/Base';
+import { FormWrapper, InputWrapper, EditInput} from "./../lib/Inputs";
 import { H1, H2, H3, H4, H5, H6, P, Small, Label } from './../lib/Typography';
 import { EditClientLogo} from './../lib/Images';
 import { connect } from 'react-redux';
@@ -41,7 +42,6 @@ class AddClient extends Component {
 		this.props.addClient(this.props.user.id, this.state);
 	};
 	render() {
-		console.log(this.state);
 		const { first_name, last_name, pos, company, email, phone, selectedImg } = this.state;
 		return (
 			<FlipIn>
@@ -69,6 +69,17 @@ class AddClient extends Component {
 
               <FormWrapper>
                 <InputWrapper>
+                  <Label>Company </Label>                  
+							    <EditInput value={company} name="company" onChange={this.handleInputs} />
+                </InputWrapper>
+                <InputWrapper>
+                  <Label>Position </Label>  
+						      <EditInput value={pos} name="pos" onChange={this.handleInputs} />
+                </InputWrapper>  
+              </FormWrapper>
+
+              <FormWrapper>
+                <InputWrapper>
                   <Label>First Name </Label>
 							    <EditInput value={first_name} name="first_name" onChange={this.handleInputs} />
                 </InputWrapper>
@@ -78,16 +89,6 @@ class AddClient extends Component {
                 </InputWrapper>
               </FormWrapper>
 
-              <FormWrapper>
-                <InputWrapper>
-                  <Label>Position </Label>  
-						      <EditInput value={pos} name="pos" onChange={this.handleInputs} />
-                </InputWrapper>  
-                <InputWrapper>
-                  <Label>Company </Label>                  
-							    <EditInput value={company} name="company" onChange={this.handleInputs} />
-                </InputWrapper>
-              </FormWrapper>
 
               <FormWrapper>
                 <InputWrapper>

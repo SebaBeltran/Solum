@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { ContactFront, FlexColumn, FlexRow, AddPic, FlipIn, SaveLink, EditIcon, StyledLink, EditMenu } from "./../lib/Base";
-import { FormWrapper, InputWrapper, EditInput } from "./../lib/Inputs";
+import { ContactFront, FlexColumn, FlexRow, AddPic, EditInput, FlipIn, FormWrapper, InputWrapper, SaveLink, EditIcon, StyledLink, EditMenu } from "./../lib/Base";
 import { H5, Label  } from "./../lib/Typography";
 import { EditClientLogo} from "./../lib/Images";
 import { connect } from "react-redux";
@@ -68,23 +67,23 @@ class EditClient extends Component{
 
               <FormWrapper>
                 <InputWrapper>
-                  <Label>Company </Label>                  
-							    <EditInput value={company} name="company" onChange={(e)=>{this.handleInputs(e)}} />
-                </InputWrapper>
-                <InputWrapper>
-                  <Label>Position </Label>  
-						      <EditInput value={pos} name="pos" onChange={(e)=>{this.handleInputs(e)}} />
-                </InputWrapper>  
-              </FormWrapper>
-
-              <FormWrapper>
-                <InputWrapper>
                   <Label>First Name </Label>
 							    <EditInput value={firstNameInput} name="firstNameInput" onChange={(e)=>{this.handleInputs(e)}} />
                 </InputWrapper>
                 <InputWrapper>
                   <Label>Last Name </Label>
 							    <EditInput value={lastNameInput} name="lastNameInput" onChange={(e)=>{this.handleInputs(e)}} />
+                </InputWrapper>
+              </FormWrapper>
+
+              <FormWrapper>
+                <InputWrapper>
+                  <Label>Position </Label>  
+						      <EditInput value={pos} name="pos" onChange={(e)=>{this.handleInputs(e)}} />
+                </InputWrapper>  
+                <InputWrapper>
+                  <Label>Company </Label>                  
+							    <EditInput value={company} name="company" onChange={(e)=>{this.handleInputs(e)}} />
                 </InputWrapper>
               </FormWrapper>
 

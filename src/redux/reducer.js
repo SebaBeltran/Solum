@@ -2,15 +2,31 @@ import axios from "axios"
 const initialState = {
   user: {},
   clients:[],
-  currentClientId:""
+  currentClientId:"",
+  projects: [],
+  currentProjectId:"",
+  currentDate: "",
+  project_start_date: {},
+  project_end_date: {},
+  tasks:[]
 }
 
 const GET_USER_DATA = "GET_USER_DATA";
-const GET_CLIENTS_DATA = "GET_CLIENTS_DATA";
+const GET_CLIENT = "GET_CLIENT";
 const UPDATE_CLIENT = "UPDATE_CLIENT";
 const ADD_CLIENT = "ADD_CLIENT";
 const GET_CURRENT_CLIENT = "GET_CURRENT_CLIENT";
 const DELETE_CLIENT = "DELETE CLIENT";
+
+const GET_PROJECTS = "GET PROJECTS";
+const GET_CURRENT_PROJECT = "GET_CURRENT_PROJECT";
+const ADD_PROJECT = "ADD PROJECT";
+const DELETE_PROJECT = "ADD PROJECT";
+const UPDATE_PROJECT = "ADD PROJECT";
+
+const GET_TASKS = "GET TASK";
+const ADD_TASK = "ADD TASK";
+const DELETE_TASK = "DELETE TASK"
 
 export function getUser() {
   let userData = axios.get("/auth/user").then(res => {
@@ -22,10 +38,10 @@ export function getUser() {
   }
 }
 
-export function getData(id){
-  let clientData = axios.get(`/api/${id}/clients`).then(res => res.data);
+export function getClients(id){
+  let clientData = axios.get(`/api/clients/${id}`).then(res => res.data);
   return {
-    type: GET_CLIENTS_DATA,
+    type: GET_CLIENT,
     payload: clientData
   }
 }
@@ -39,7 +55,6 @@ export function currentClient(clientId){
 
 export function deleteClient(clientId){
   let clientsList = axios.delete(`/api/clients/${clientId}`).then(res => res.data)
-  console.log("callededsf")
   return{
     type: DELETE_CLIENT,
     payload: clientsList
@@ -63,16 +78,79 @@ export function addClient(userId, body){
   }
 }
 
+export function getProjects(id){
+  let projectsData = axios.get(`/api/projects/${id}`).then(res => res.data);
+  return{
+    type: GET_PROJECTS,
+    payload: projectsData
+  }
+}
+export function currentProject(projectId){
+  return{
+    type: GET_CURRENT_PROJECT,
+    payload: projectId
+  }
+}
+export function addProject(userId, body){
+  let copyBody = Object.assign({}, body, {user_id: userId})
+  let updatedProjectsList = axios.post("/api/projects", copyBody).then(res => res.data);
+
+  return{
+    type: ADD_PROJECT,
+    payload: updatedProjectsList
+  }
+}
+
+export function deleteProject(projectId){
+  let projectsList = axios.delete(`/api/projects/${projectId}`).then(res => res.data)
+  return{
+    type: DELETE_PROJECT,
+    payload: projectsList
+  }
+}
+
+export function updateProject(body){
+  let updatedProject = axios.put(`/api/projects/${body.client_id}`, body).then(res => res.data);
+  return {
+    type: UPDATE_PROJECT,
+    payload:updatedProject
+  }
+}
+
+export function getTasks(id){
+  let tasks = axios.get(`/api/tasks/${id}`).then(res => res.data);
+  return{
+    type: GET_TASKS,
+    payload: tasks
+  }
+}
+
+export function addTask(body){
+  console.log(body)
+  let updatedTaskList = axios.post("/api/tasks", body).then(res => res.data);
+
+  return{
+    type: ADD_TASK,
+    payload: updatedTaskList
+  }
+}
+
+export function deleteTask(taskId){
+  let taskList = axios.delete(`/api/tasks/${taskId}`).then(res => res.data)
+  return{
+    type: DELETE_TASK,
+    payload: taskList
+  }
+}
 
 export default function reducer(state = initialState, action){
-  console.log(action)
   switch (action.type){
     //case GET_USER_DATA + "_PENDING":
     //case GET_USER_DATA + "_FULFILLED":
     //case GET_USER_DATA + "_REJECTED":
     case GET_USER_DATA + "_FULFILLED":
       return Object.assign({}, state, {user: action.payload});
-    case GET_CLIENTS_DATA + "_FULFILLED":
+    case GET_CLIENT + "_FULFILLED":
       return Object.assign({}, state, {clients: action.payload});
     case GET_CURRENT_CLIENT:
       return Object.assign({}, state, {currentClientId: action.payload});
@@ -81,9 +159,22 @@ export default function reducer(state = initialState, action){
     case ADD_CLIENT + "_FULFILLED":
       return Object.assign({}, state, {clients: action.payload});  
     case DELETE_CLIENT + "_FULFILLED":
-    console.log(action.payload)
-      return Object.assign({}, state, {clients: action.payload});         
-    
+      return Object.assign({}, state, {clients: action.payload});    
+    case GET_PROJECTS + "_FULFILLED":
+      return Object.assign({}, state, {projects: action.payload})
+    case ADD_PROJECT + "_FULFILLED":
+      return Object.assign({}, state, {projects: action.payload})         
+    case GET_CURRENT_PROJECT:
+      return Object.assign({}, state, {currentProjectId: action.payload}); 
+    case DELETE_PROJECT+ "_FULFILLED":
+      return Object.assign({}, state, {projects: action.payload});
+    case GET_TASKS + "_FULFILLED":
+      return Object.assign({}, state, {tasks: action.payload});
+    case ADD_TASK + "_FULFILLED":
+      return Object.assign({}, state, {tasks: action.payload});
+    case DELETE_TASK + "_FULFILLED":
+      return Object.assign({}, state, {tasks: action.payload});    
+
     default:
     return state;
   }

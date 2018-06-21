@@ -25,9 +25,9 @@ render(){
           </EditMenu>
           
             <ClientLogoBig ml="40px" pad="60px" src={`url(${client_pic})`} />
-            <H4>{company}</H4>
-            <H6>{first_name} {last_name}</H6>
+            <H4>{first_name} {last_name}</H4>
             <P>{pos} at</P>
+            <H6>{company}</H6>
             <ContactFooter justify="space-around">
               <FlexColumn>
                 <A href={`mailto:${email}`}>

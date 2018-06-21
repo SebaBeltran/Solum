@@ -83,10 +83,21 @@ app.get("/auth/user", (req, res) =>{
 });
 
 
-//Endpoint to get Clients
-app.get("/api/:id/clients", ctlr.getClients);
+//Clients Endpoint
+app.get("/api/clients/:id", ctlr.getClients);
 app.put("/api/clients/:id", ctlr.updateClient);
 app.post("/api/clients", ctlr.addClient);
 app.delete(`/api/clients/:id`, ctlr.deleteClient);
+
+//Projects Endpoint
+app.get("/api/projects/:id", ctlr.getProjects);
+app.put("/api/projects/:id", ctlr.updateProject);
+app.post("/api/projects", ctlr.addProject);
+app.delete(`/api/projects/:id`, ctlr.deleteProject);
+
+//Tasks Endpoint
+app.get("/api/tasks/:id", ctlr.getTask)
+app.post("/api/tasks", ctlr.addTask);
+app.delete(`/api/tasks/:id`, ctlr.deleteTask);
 
 app.listen(SERVER_PORT, ()=>console.log("Listening to port: " + SERVER_PORT ))

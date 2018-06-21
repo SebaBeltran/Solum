@@ -81,3 +81,11 @@ email = $6,
 phone = $7,
 client_pic = $8,
 where client_id = $1;
+
+
+--PROJECTS
+insert into projects (user_id, client_id, project_name, estimated_hours, tracked_hours, start_date, end_date, color_tag)
+values (10, 20, 'My First Project', 20, 13, '02 Jul 2018', '09 Jul 2018', '#44C4E9');
+
+insert into projects (user_id, client_id, project_name, estimated_hours, tracked_hours, start_date, end_date, color_tag)
+values (10, 20, 'My Second Project', 4, 6, '22 Jun 2018', '23 Jul 2018', '#E99344');

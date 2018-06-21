@@ -6,38 +6,90 @@ import {connect} from "react-redux";
 import {Route} from "react-router-dom";
 import EditClient from "./EditClient";
 import ClientInfo from './ClientInfo';
-import { getUser, getData, currentClient } from "./../../redux/reducer";
+import { getUser, getClients, currentClient, search } from "./../../redux/reducer";
 import AddClient from './AddClient';
 
 
 class Clients extends Component {
+  constructor(props){
+    super(props);
+
+    this.state = {
+      searchInput: "",
+      clientsList: this.props.clients
+    }
+    this.handleSearch = this.handleSearch.bind(this)
+  }
 
   componentDidMount() {
     this.props.getUser();
-    this.props.getData(this.props.user.id);
+    this.props.getClients(this.props.user.id);
+    // this.handleSearch()
   }
 
+  
+  handleSearch(val) {
+    if(!val){
+      this.setState({searchInput: "", clientsList: this.props.clients})
+    }
+    else{
+      let filtered = this.props.clients.filter(obj => {
+        if( obj.first_name.toLowerCase().includes(val.toLowerCase())) {
+          return true
+        }  
+        else if(obj.last_name.toLowerCase().includes(val.toLowerCase())) {
+          return true
+        } 
+        else if(obj.company.toLowerCase().includes(val.toLowerCase())) {
+          return true
+        }
+        else{
+          return false;
+        }
+          
+    // let filtered = this.props.clients.filter(obj => {
+    //  let searchIn = Object.keys(obj).splice(1,5);
+    //  return searchIn.forEach(str => obj[str].includes(val))
+    // });
+    // this.setState({searchInput: val, clientsList: filtered})
+    // console.log(filtered)
+    // }
+    // console.log(filtered)
+
+      })
+      this.setState({searchInput: val, clientsList: filtered})
+    }
+  }
+
+  // compone
+
+  fileSelectedHandler = event =>{
+    this.setState({selectedImg: event.target.files[0]})
+  }
 
   render() {
+    console.log(this.state)
     let mappedClient = this.props.clients.map((client, i) => {
       const {client_id, first_name, last_name, pos, company, email, phone, client_pic} = client;
       return(
         <StyledLink key={i} to={`/user/clients/${client_id}`} onClick={()=>{this.props.currentClient(client_id)}}>
-        <ListItem  id={client_id} client={client} >
-          <ClientLogo pad="20px" src={`url(${client_pic})`}/>
-          <FlexColumn>  
-            <H5 mt="0" mb="0" ml="20px" lineH="0.6">{first_name} {last_name}</H5>
-            <Small mt="0" mb="10" ml="20px" lineH="1.9">{pos} at {company}</Small>
+          <ListItem  id={client_id} client={client} >
+            <ClientLogo pad="20px" src={`url(${client_pic})`}/>
+            <FlexColumn>  
+              <H5 mt="0" mb="0" ml="20px" lineH="1.3">{company}</H5>
+              <Small mt="0" mb="10" ml="20px" lineH="1.3">{first_name} {last_name}</Small>
+              <Small mt="0" mb="10" ml="20px" lineH="1.3">{pos}</Small>
+              
             </FlexColumn>
           </ListItem>
-          </StyledLink>
+        </StyledLink>
       )
     })
     return (
       <MainContentWrapper>
         <ListWrapper>
           <ListHeader>
-            <SearchInput />
+            <SearchInput value={this.state.searchInput} onChange={(e)=>this.handleSearch(e.target.value)}/>
             <Small lineH="2.5">Press Enter to submit</Small>
           </ListHeader>
           {mappedClient}
@@ -61,4 +113,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, {getUser, getData, currentClient})(Clients);
+export default connect(mapStateToProps, {getUser, getClients, currentClient})(Clients);

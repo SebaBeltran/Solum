@@ -3,10 +3,10 @@ import { FlexColumn, ContactFront,  ContactFooter, ContactIcon, A, EditIcon, Fli
 import { H4, H6, P  } from "./../lib/Typography";
 import { ClientLogoBig } from "./../lib/Images";
 import {connect} from "react-redux";
-import {deleteClient} from "./../../redux/reducer";
+import {deleteProject} from "./../../redux/reducer";
 
 
-class ClientInfo extends Component{
+class ProjectInfo extends Component{
   constructor(props){
     super(props);
     
@@ -17,43 +17,25 @@ class ClientInfo extends Component{
 
 render(){
   console.log(this.props)
-  const {first_name, last_name, pos, company, client_pic, email, phone} = this.props.client
+  const {project_name, estimated_hours, tracked_hours, start_date, end_date} = this.props.project
   return(
     <FlipIn>
           <ContactFront>
 
           <EditMenu>
             <ThreeDots></ThreeDots>
-            <IconLink to={`/user/clients`} onClick={()=>this.props.deleteClient(this.props.match.params.id)}>
+            <IconLink to={`/user/projects`} onClick={()=>this.props.deleteProject(this.props.match.params.id)}>
               <EditIcon data-icon="&#xe054;"/>
             </IconLink>
-            <IconLink to={`/user/clients/${this.props.match.params.id}/edit`}>
+            <IconLink to={`/user/projects/${this.props.match.params.id}/edit`}>
               <EditIcon data-icon="&#xe060;"/>
             </IconLink>
          </EditMenu>
           
-            <ClientLogoBig ml="40px" pad="60px" src={`url(${client_pic})`} />
-            <H4>{first_name} {last_name}</H4>
-            <P>{pos} at</P>
-            <H6>{company}</H6>
-            <ContactFooter justify="space-around">
-              <FlexColumn>
-                <A href={`mailto:${email}`}>
-                  <ContactIcon data-icon="&#xe086;" />
-                </A>
-              </FlexColumn>
-
-              <FlexColumn>
-                <A href={`tel:${phone}`}>
-                  <ContactIcon data-icon="&#xe046;" />
-                </A>
-              </FlexColumn>
-
-              <FlexColumn>
-                <ContactIcon data-icon="&#xe07d;" />
-              </FlexColumn>
-
-            </ContactFooter>
+            <ClientLogoBig ml="40px" pad="60px" src={`url(http://logofaves.com/wp-content/uploads/2016/07/style_m.jpg?9cf02b)`} />
+            <H4>{project_name}</H4>
+            <P>{tracked_hours}/{estimated_hours}</P>
+            <H6>{start_date} - {end_date}</H6>
           </ContactFront>
         </FlipIn>
   )
@@ -61,10 +43,11 @@ render(){
 }
 
 function mapStateToProps(state) {
-  const currentClient = state.clients.find( client => client.client_id === state.currentClientId)
+  console.log(state)
+  const currentProject = state.projects.find( project => project.project_id === state.currentProjectId)
   return({
-    client: currentClient
+    project: currentProject
   })
 }
 
-export default connect(mapStateToProps, {deleteClient})(ClientInfo)
+export default connect(mapStateToProps, {deleteProject})(ProjectInfo)

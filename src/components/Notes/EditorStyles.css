@@ -1,0 +1,85 @@
+.editor {
+  box-sizing: border-box;
+  border: 1px solid #ddd;
+  cursor: text;
+  padding: 16px;
+  border-radius: 2px;
+  margin-bottom: 2em;
+  box-shadow: inset 0px 1px 8px -3px #ABABAB;
+  background: #fefefe;
+}
+
+.editor :global(.public-DraftEditor-content) {
+  min-height: 140px;
+}
+
+.headlineButtonWrapper {
+  display: inline-block;
+}
+
+.headlineButton {
+  background: #fbfbfb;
+  color: #888;
+  font-size: 18px;
+  border: 0;
+  padding-top: 5px;
+  vertical-align: bottom;
+  height: 34px;
+  width: 36px;
+}
+
+.headlineButton:hover,
+.headlineButton:focus {
+  background: #f3f3f3;
+}
+.draftJsToolbar__toolbar__dNtBH{
+  background-color: #41403F;
+  border-radius: 25px;
+  display: flex;
+  flex-flow: row;
+  padding: 0 20px;
+  width: auto;
+  top: 0px;
+  position: absolute;
+  z-index: 100;
+}
+
+
+.draftJsToolbar__toolbar__dNtBH button{
+  background-color: #41403F;
+  height: 40px;
+  width: 40px;
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+  border: none;
+  color: white;
+  font-size: 16px;
+}
+.draftJsToolbar__toolbar__dNtBH:hover > button > svg > path:nth-child(1),
+/* .draftJsToolbar__buttonWrapper__1Dmqh:nth-child(9) > button > svg > path:nth-child(1),
+.draftJsToolbar__buttonWrapper__1Dmqh:nth-child(10) > button > svg > path:nth-child(1),
+.draftJsToolbar__buttonWrapper__1Dmqh:nth-child(11) > button > svg > path:nth-child(1),
+.draftJsToolbar__buttonWrapper__1Dmqh:nth-child(2) > button > svg > path:nth-child(2),
+.draftJsToolbar__buttonWrapper__1Dmqh:nth-child(3) > button > svg > path:nth-child(2),
+.draftJsToolbar__buttonWrapper__1Dmqh:nth-child(4) > button > svg > path:nth-child(2),
+.draftJsToolbar__buttonWrapper__1Dmqh:nth-child(12) > button > svg > path:nth-child(2){ */
+  {
+  fill: red;
+}
+
+.draftJsToolbar__buttonWrapper__1Dmqh:nth-child(1) > button > svg > path:nth-child(1),
+.draftJsToolbar__buttonWrapper__1Dmqh:nth-child(9) > button > svg > path:nth-child(1),
+.draftJsToolbar__buttonWrapper__1Dmqh:nth-child(10) > button > svg > path:nth-child(1),
+.draftJsToolbar__buttonWrapper__1Dmqh:nth-child(11) > button > svg > path:nth-child(1),
+.draftJsToolbar__buttonWrapper__1Dmqh:nth-child(2) > button > svg > path:nth-child(2),
+.draftJsToolbar__buttonWrapper__1Dmqh:nth-child(3) > button > svg > path:nth-child(2),
+.draftJsToolbar__buttonWrapper__1Dmqh:nth-child(4) > button > svg > path:nth-child(2),
+.draftJsToolbar__buttonWrapper__1Dmqh:nth-child(12) > button > svg > path:nth-child(2){
+  fill: white;
+}
+
+
+.draftJsToolbar__toolbar__dNtBH button:hover{
+  background-color: #4f4f4f;
+}

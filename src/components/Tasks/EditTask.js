@@ -9,7 +9,7 @@ import { DatePickerWrapper } from '../lib/DatePicker';
 import { connect } from "react-redux";
 import { updateProject } from "./../../redux/reducer";
 
-class EditProject extends Component{
+class EditTask extends Component{
   constructor(props){
     super(props);
 
@@ -188,4 +188,4 @@ function mapStateToProps(state) {
     project: currentProject
   })
 }
-export default connect(mapStateToProps, {updateProject})(EditProject)
+export default connect(mapStateToProps, {updateProject})(EditTask)
