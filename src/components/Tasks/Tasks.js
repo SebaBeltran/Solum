@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FlexColumn, MainContentWrapper, ListWrapper, ListItem, ListHeader, SearchInput, MainContent, StyledLink, FlexRow} from "./../lib/Base";
+import { FlexColumn, MainContentWrapper, ListWrapper, Div, ListHeader, SearchInput, MainContent, StyledLink, FlexRow} from "./../lib/Base";
 import {TagColor, ProjectTitleWrapper, ProjectItem} from "./../lib/Projects"
 import { H1, H5, Small, P  } from "./../lib/Typography";
 import {connect} from "react-redux";
@@ -8,6 +8,7 @@ import {Route} from "react-router-dom";
 import TaskInfo from './TaskInfo';
 import { getUser, getClients, getProjects, currentProject, getTasks } from "./../../redux/reducer";
 import AddTask from './AddTask';
+import TimeTracker from "./../TimeTracker/TimeTracker"
 
 
 class Tasks extends Component {
@@ -29,6 +30,7 @@ class Tasks extends Component {
     let mappedProject = this.props.projects.map((project, i) => {
       const {project_id, project_name, estimated_hours, tracked_hours, start_date, end_date, color_tag} = project;
       return(
+        
         <StyledLink key={i} to={`/user/tasks/${project_id}`} onClick={()=>{this.props.currentProject(project_id)}}>
         <ProjectItem  id={project_id} project={project} color={color_tag}>
           <FlexColumn>
@@ -55,13 +57,15 @@ class Tasks extends Component {
           </ListHeader>
           {mappedProject}
         </ListWrapper>
-        
-        <MainContent>
+        <Div>
+          <TimeTracker/>
+          <MainContent>
           <H1>TASKS</H1>
           <Route path={`/user/tasks/`} component={AddTask} exact/>
           <Route path={`/user/tasks/:id`} component={TaskInfo} exact/>
           {/* <Route path={`/user/tasks/:id/edit`} component={EditTask} /> */}
         </MainContent>   
+        </Div>
       </MainContentWrapper>
     )
   }

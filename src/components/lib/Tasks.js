@@ -1,6 +1,6 @@
 import styled, {keyframes, injectGlobal} from "styled-components";
 import { FlexColumn, FlexRow, ContactFront} from './Base';
-import { lightGrey, darkWhite } from "./Colors"
+import { lightGrey, darkWhite, red } from "./Colors"
 
 export const ListWrapper = ContactFront.extend`
   > h4 {
@@ -35,7 +35,7 @@ export const ColorTag = styled.div`
   position: absolute;
   left: 0;
   height: 100%;
-  width: 6px;
+  width: 8px;
   background: ${props => props.color}
 `;
 
@@ -47,6 +47,7 @@ export const Checkbox = styled.input`
   position: absolute;
   opacity: 0;
   z-index: 5;
+  cursor: pointer;
 
   &:checked + label{
     text-decoration: line-through;
@@ -61,6 +62,13 @@ export const Checkbox = styled.input`
 
   &:checked + label span:after{
     transform: scale(2);
+
+  }
+
+  &:checkerd + label span:before{
+    opacity: 1;
+    transform: scale(1.3);
+    transition: opacity 300ms cubic-bezier(0.2, 0, 0, 1), transform 400ms cubic-bezier(0.3, 0, 0, 1.4);
   }
 `;
 
@@ -103,7 +111,46 @@ export const Check = styled.span`
     background-size: 13px 8px;
     
     transform: scale(0);
-    transition: transform 300ms cubic-bezier(0.3, 0, 0, 1.5);
-    // transition: 0.3s all;
+    transition: opacity 300ms cubic-bezier(0.2, 0, 0, 1), transform 400ms cubic-bezier(0.3, 0, 0, 1.4);
+  }
+
+  &:before{
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    
+    opacity: .8;
+    transform: scale(1);
+  }
+`;
+export const TaskIcon = styled.span`
+  margin:0 5px;
+  &:hover{
+    color:${red};
+  }
+`;
+
+export const IconWrapper = FlexRow.extend`
+  justify-content: space-between;
+  width: auto;
+  position: absolute;
+  right: 20px;
+  z-index: 10;
+`;
+
+export const DateWrapper = FlexRow.extend`
+  width: auto;
+  :hover{
+    color: ${red};
+  }
+  
+  > small{
+    padding-top: 2px;
+    width: 85px;
   }
 `;

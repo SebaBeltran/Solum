@@ -24,7 +24,6 @@ class Private extends Component {
           <h1>DASHBOARD</h1>
           <p>{id}</p>
           <p>{user_name}</p>
-        
       </div>
     );
   }

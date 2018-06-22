@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FlexColumn, MainContentWrapper, ListWrapper, ListItem, ListHeader, SearchInput, MainContent, StyledLink, FlexRow} from "./../lib/Base";
+import { FlexColumn, MainContentWrapper, ListWrapper, Div, ListHeader, SearchInput, MainContent, StyledLink, FlexRow} from "./../lib/Base";
 import {TagColor, ProjectTitleWrapper, ProjectItem} from "./../lib/Projects"
 import { H1, H5, Small, P  } from "./../lib/Typography";
 import {connect} from "react-redux";
@@ -8,6 +8,7 @@ import EditProject from "./EditProject";
 import ProjectInfo from './ProjectInfo';
 import { getUser, getClients, getProjects, currentProject } from "./../../redux/reducer";
 import AddProject from './AddProject';
+import TimeTracker from "./../TimeTracker/TimeTracker"
 
 
 class Projects extends Component {
@@ -55,12 +56,15 @@ class Projects extends Component {
           {mappedProject}
         </ListWrapper>
         
+        <Div>
+          <TimeTracker/>
         <MainContent>
           <H1>PROJECTS</H1>
           <Route path={`/user/projects/`} component={AddProject} exact/>
           <Route path={`/user/projects/:id`} component={ProjectInfo} exact/>
           <Route path={`/user/projects/:id/edit`} component={EditProject} />
         </MainContent>   
+        </Div>
       </MainContentWrapper>
     )
   }

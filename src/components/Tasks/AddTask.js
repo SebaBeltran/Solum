@@ -6,7 +6,7 @@ import {tag_blue, tag_green, tag_lightblue, tag_orange, tag_pink, tag_red, tag_v
 import {TagSelector, TagLabel, TagCheck, TagWrapper} from "./../lib/Projects"
 import { connect } from 'react-redux';
 import { addTask } from './../../redux/reducer';
-import DatePicker from './DatePicker';
+import DayPick from './DatePicker';
 import { DatePickerWrapper } from '../lib/DatePicker';
 
 
@@ -28,12 +28,13 @@ class AddTask extends Component {
 			this.setState({ [val.target.name]: val.target.value, toggle_datePicker: false});
 	};
 
-	handleDate = (type, date, month, year, day) =>{
-
-		this.setState({due_date: {date: date, month: month, year:year}, d_date: day })
+	handleDate = (day) =>{
+		console.log(day)
+		this.setState({due_date: {date: day.getDate(), month: day.getMonth(), year: day.getFullYear()}, d_date: day, toggle_datePicker: false })
 	}
 
 	handleToggle = (val) => {
+		console.log(val)
     this.setState({toggle_datePicker: val})
   }
 
@@ -135,7 +136,7 @@ class AddTask extends Component {
                   <Label>Due Date</Label> 
 									<DateInput value={`${due_date.month} / ${due_date.date} / ${due_date.year}`} name="due_date" onClick={()=>this.handleToggle(true)} />                 
 							    <DatePickerWrapper style={this.state.toggle_datePicker ? {height: "400px", padding: "10px"} : {height: "0", padding: "0px"}} >
-										<DatePicker toggle_datePicker={this.handleToggle} handleDate={this.handleDate} onMouseLeave={()=>this.handleToggle(false)}/>
+										<DayPick toggle_datePicker={this.handleToggle} handleDate={this.handleDate} onMouseLeave={()=>this.handleToggle(false)}/>
 									</DatePickerWrapper>
                 </InputWrapper>
 							

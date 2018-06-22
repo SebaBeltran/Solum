@@ -1,10 +1,10 @@
 import React, {Component} from "react";
-import { ContactFront,  ContactFooter, ContactIcon, A, EditIcon, FlipIn, EditMenu, ThreeDots, IconLink, StyledLink } from "./../lib/Base";
-import { ListWrapper, TaskWrapper, ColorTag, Checkbox, Label, Check } from "./../lib/Tasks"
+import { ContactFront,  ContactFooter, ContactIcon, A, EditIcon, FlipIn, EditMenu, IconLink, StyledLink, FlexRow } from "./../lib/Base";
+import { ListWrapper} from "./../lib/Tasks"
 import { H5, H4, P  } from "./../lib/Typography";
 import {connect} from "react-redux";
-import {deleteTask} from "./../../redux/reducer";
 
+import Task from "./Task"
 
 class TaskInfo extends Component{
   constructor(){
@@ -21,11 +21,7 @@ render(){
   const mappedTask = this.props.tasks.map( (taskItem, i) => {
     const { task, due_date, color_tag, task_id } = taskItem
     return(
-      <TaskWrapper key={i}>
-        
-        <Checkbox type="checkbox" id="task_id"/>
-        <Label for="task_id"><ColorTag color={color_tag}/><Check/> <H5>{task}</H5></Label>
-      </TaskWrapper>  
+      <Task key={i} task={task} due_date={due_date} color={color_tag} task_id={task_id} taskItem={taskItem}/>
     )
   })
   return(
@@ -52,4 +48,4 @@ function mapStateToProps(state) {
   })
 }
 
-export default connect(mapStateToProps, {deleteTask})(TaskInfo)
+export default connect(mapStateToProps)(TaskInfo)

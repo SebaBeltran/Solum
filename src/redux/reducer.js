@@ -26,7 +26,10 @@ const UPDATE_PROJECT = "ADD PROJECT";
 
 const GET_TASKS = "GET TASK";
 const ADD_TASK = "ADD TASK";
-const DELETE_TASK = "DELETE TASK"
+const DELETE_TASK = "DELETE TASK";
+
+const CHECK_TASK = "DELETE TASK"
+
 
 export function getUser() {
   let userData = axios.get("/auth/user").then(res => {
@@ -140,6 +143,13 @@ export function deleteTask(taskId){
   return{
     type: DELETE_TASK,
     payload: taskList
+  }
+}
+
+export function handleCheck(task){
+  return{
+    type: CHECK_TASK,
+    payload: task
   }
 }
 

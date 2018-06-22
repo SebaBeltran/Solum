@@ -63,6 +63,12 @@ export const MenuLink = styled.a`
   letter-spacing:2px;
 `;
 
+export const Div = styled.div`
+ width: 100%;
+ height:100%; 
+`;
+
+
 export const MenuItem = FlexRow.extend`
   background-color: ${darkWhite};
   padding: 0px;

@@ -16,7 +16,7 @@ class Clients extends Component {
 
     this.state = {
       searchInput: "",
-      clientsList: this.props.clients
+      clientsList: []
     }
     this.handleSearch = this.handleSearch.bind(this)
   }
@@ -24,8 +24,14 @@ class Clients extends Component {
   componentDidMount() {
     this.props.getUser();
     this.props.getClients(this.props.user.id);
-    // this.handleSearch()
+    this.handleSearch("")
   }
+
+  componentDidUpdate(prevProps, nextProps){
+    if(prevProps.clients.length !== this.props.clients.length)
+    this.handleSearch("")
+  }
+  
 
   
   handleSearch(val) {
@@ -68,8 +74,8 @@ class Clients extends Component {
   }
 
   render() {
-    console.log(this.state)
-    let mappedClient = this.props.clients.map((client, i) => {
+    console.log(this.props.clients)
+    let mappedClient = this.state.clientsList.map((client, i) => {
       const {client_id, first_name, last_name, pos, company, email, phone, client_pic} = client;
       return(
         <StyledLink key={i} to={`/user/clients/${client_id}`} onClick={()=>{this.props.currentClient(client_id)}}>

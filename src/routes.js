@@ -15,7 +15,7 @@ import Tasks from "./components/Tasks/Tasks";
 export default (
   <FlexRow>
       <Route component={Login} path="/" exact/>
-      <Route component={Sidebar} path="/user/"/>
+      <Route component={Sidebar} path="/user"/>
       <Switch>
         <Route component={Dashboard} path="/user" exact />
         <Route component={Tasks} path="/user/tasks" />
