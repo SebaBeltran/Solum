@@ -78,8 +78,8 @@ module.exports = {
   
   addTask: (req, res) =>{
     const db = req.app.get("db");
-    const {project_id, task, d_date, color_tag, user_id} = req.body;
-    db.add_task([project_id, task, d_date, color_tag, user_id])
+    const {project_id, task, d_date, color_tag, user_id, tracked_time, status} = req.body;
+    db.add_task([project_id, task, d_date, color_tag, user_id, tracked_time, status])
     .then(tasks => {res.status(200).send(tasks)})
     .catch(()=>res.status(500).send())
   },
@@ -100,4 +100,12 @@ module.exports = {
     .catch(()=>res.status(500).send())
   },
 
+  updateTask: (req, res) =>{
+    const db = req.app.get("db");
+    const {task_id, task, due_date, color_tag, tracked_time, status, project_id} = req.body;
+
+    db.update_task([task_id, task, due_date, color_tag, tracked_time, status, project_id])
+    .then(tasks => res.status(200).send(tasks))
+    .catch(()=>res.status(500).send())
+  },
 }

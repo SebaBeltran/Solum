@@ -7,6 +7,7 @@ class Private extends Component {
     this.props.getUser();
     this.props.getClients();
     this.props.getProjects();
+    this.props.getTasks();
     
 
   }

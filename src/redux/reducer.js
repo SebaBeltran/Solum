@@ -27,8 +27,7 @@ const UPDATE_PROJECT = "ADD PROJECT";
 const GET_TASKS = "GET TASK";
 const ADD_TASK = "ADD TASK";
 const DELETE_TASK = "DELETE TASK";
-
-const CHECK_TASK = "DELETE TASK"
+const UPDATE_TASK = "UPDATE TASK"
 
 
 export function getUser() {
@@ -129,7 +128,6 @@ export function getTasks(id){
 }
 
 export function addTask(body){
-  console.log(body)
   let updatedTaskList = axios.post("/api/tasks", body).then(res => res.data);
 
   return{
@@ -146,10 +144,12 @@ export function deleteTask(taskId){
   }
 }
 
-export function handleCheck(task){
+export function updateTask(body){
+    console.log(body)
+  let updatedTask = axios.put(`/api/tasks/${body.task_id}`, body).then(res => res.data);
   return{
-    type: CHECK_TASK,
-    payload: task
+    type: UPDATE_TASK,
+    payload: updatedTask
   }
 }
 
@@ -169,6 +169,7 @@ export default function reducer(state = initialState, action){
     case ADD_CLIENT + "_FULFILLED":
       return Object.assign({}, state, {clients: action.payload});  
     case DELETE_CLIENT + "_FULFILLED":
+    
       return Object.assign({}, state, {clients: action.payload});    
     case GET_PROJECTS + "_FULFILLED":
       return Object.assign({}, state, {projects: action.payload})
@@ -178,11 +179,14 @@ export default function reducer(state = initialState, action){
       return Object.assign({}, state, {currentProjectId: action.payload}); 
     case DELETE_PROJECT+ "_FULFILLED":
       return Object.assign({}, state, {projects: action.payload});
+
     case GET_TASKS + "_FULFILLED":
       return Object.assign({}, state, {tasks: action.payload});
     case ADD_TASK + "_FULFILLED":
       return Object.assign({}, state, {tasks: action.payload});
     case DELETE_TASK + "_FULFILLED":
+      return Object.assign({}, state, {tasks: action.payload});  
+    case UPDATE_TASK + "_FULFILLED":
       return Object.assign({}, state, {tasks: action.payload});    
 
     default:

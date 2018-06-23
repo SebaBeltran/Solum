@@ -14,52 +14,48 @@ class Task extends Component{
 
   handleChange = task => {
     console.log(task)
-    const body = Object.assign({}, task, {status: "completed"})
+    const body = Object.assign({}, task, {status: "active"})
     this.props.updateTask(body)
   }
 
   timeConvert = (num) => {
-    let hours = (num/60 >= 60) ? 
-                Math.floor(num/60/60) < 10 ? 
-                  "0" +  Math.floor(num/60/60) : 
-                  Math.floor(num/60/60) 
-                : "00";
+      let hours = (num/60 >= 60) ? 
+                  Math.floor(num/60/60) < 10 ? 
+                    "0" +  Math.floor(num/60/60) : 
+                    Math.floor(num/60/60) 
+                  : "00";
 
-    let minutes = (num/60 < 60) ? 
-                    Math.floor(num/60 < 10) ?
-                      "0" + Math.floor(num/60) : 
-                      Math.floor(num/60) :
-                  (num/60%60 < 10) ?
-                  "0" + Math.floor(num/60%60) :
-                  Math.floor(num/60%60);
+      let minutes = (num/60 < 60) ? 
+                      Math.floor(num/60 < 10) ?
+                        "0" + Math.floor(num/60) : 
+                        Math.floor(num/60) :
+                    (num/60%60 < 10) ?
+                    "0" + Math.floor(num/60%60) :
+                    Math.floor(num/60%60);
 
-    let seconds = num%60 >= 10 ? num%60 : "0" + num%60;
-    
-    return hours + ":" + minutes + ":" + seconds;     
-  }
+      let seconds = num%60 >= 10 ? num%60 : "0" + num%60;
+      
+      return hours + ":" + minutes + ":" + seconds;     
+    }
 
   render(){
   let filteredTask = this.props.tasks.filter(task => task.task_id === this.props.task_id)
   filteredTask = filteredTask[0]
   const {task, due_date, color_tag, tracked_time, task_id, status } = filteredTask
-  const year = due_date.substring(0,4)
-  const month = due_date.substring(5,7)
-  const day = due_date.substring(8,10)
   return(
-    <TaskWrapper >
-      <Checkbox type="checkbox" id="task_id" onClick={()=>this.handleChange(filteredTask)}/>
+    <TaskWrapper>
+    <Checkbox type="checkbox" id="task_id" checked onClick={()=>this.handleChange(filteredTask)}/>
       <Label for="task_id">
         <ColorTag color={color_tag}/>
         <Check/> 
         <H5>{task}</H5>
       </Label>
       <IconWrapper>
-        <DateWrapper>
-          <Small>{day} / {month} / {year}</Small>
-          <TaskIcon data-icon="&#xe075;" onClick={()=>{}}/>
-        </DateWrapper>  
         <FlexRow> 
-          <TaskIcon data-icon="&#xe060;" onClick={()=>{}}/>
+        {/* <DateWrapper> */}
+          <Small>{this.timeConvert(tracked_time)}</Small>
+          <TaskIcon data-icon="&#xe081;"/>
+          {/* </DateWrapper> */}
           <TaskIcon data-icon="&#xe054;" onClick={()=>this.props.deleteTask(task_id)}/>
         </FlexRow>  
       </IconWrapper>

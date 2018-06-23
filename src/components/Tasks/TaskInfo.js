@@ -5,6 +5,7 @@ import { H5, H4, P  } from "./../lib/Typography";
 import {connect} from "react-redux";
 
 import Task from "./Task"
+import TaskCompleted from "./TaskCompleted"
 
 class TaskInfo extends Component{
   constructor(){
@@ -16,35 +17,47 @@ class TaskInfo extends Component{
   }
 
 render(){
-  console.log(this.props.tasks)
   //  const {task, due_date, color_tag} = this.props
-  const mappedTask = this.props.tasks.map( (taskItem, i) => {
+  const mappedActive = this.props.active.map( (taskItem, i) => {
     const { task, due_date, color_tag, task_id } = taskItem
     return(
-      <Task key={i} task={task} due_date={due_date} color={color_tag} task_id={task_id} taskItem={taskItem}/>
+      <Task key={i} task_id={task_id}/>
     )
   })
+
+  const mappedCompleted = this.props.completed.map( (taskItem, i) => {
+    const { task, due_date, color_tag, task_id } = taskItem
+    return(
+      <TaskCompleted key={i} task_id={task_id}/>
+    )
+  })
+
   return(
     <FlipIn>
-          <ListWrapper>
-          <EditMenu>
-            <StyledLink to={`/user/tasks`}>
-              <EditIcon data-icon="&#xe082;" />
-            </StyledLink>
-         </EditMenu>
-         <H4>List of Tasks</H4>
-          {mappedTask}
-            
-          </ListWrapper>
-        </FlipIn>
+      <ListWrapper>
+        <EditMenu>
+          <StyledLink to={`/user/tasks`}>
+            <EditIcon data-icon="&#xe082;" />
+          </StyledLink>
+        </EditMenu>
+        <H4>List of Tasks</H4>
+        {mappedActive}
+        <p>-------</p>
+        {mappedCompleted}
+      </ListWrapper>
+    </FlipIn>
   )
 }
 }
 
 function mapStateToProps(state) {
-  const tasks = state.tasks.filter(task => task.project_id === state.currentProjectId)
+  const filteredTasks = state.tasks.filter(task => task.project_id === state.currentProjectId)
+  const active = filteredTasks.filter(task => task.status === "active")
+  const completed = filteredTasks.filter(task => task.status === "completed")
   return({
-    tasks: tasks
+    tasks: filteredTasks,
+    active: active,
+    completed: completed
   })
 }
 

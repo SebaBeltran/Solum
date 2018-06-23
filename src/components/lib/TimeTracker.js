@@ -1,6 +1,6 @@
 import styled, {keyframes, injectGlobal} from "styled-components";
 import {gradientRedTop, gradientRedLeft, gradientGreyLeft, falseGradientGreyLeft,red, black, blue, darkWhite, lightGrey} from "./Colors";
-import { FlexRow, MenuIcon } from "./Base"
+import { FlexRow, MenuIcon, FlexColumn } from "./Base"
 
 export const TrackerWrapper = FlexRow.extend`
   postition: absolute;
@@ -12,6 +12,7 @@ export const TrackerWrapper = FlexRow.extend`
   align-items: center;
   padding-left: 80px;
   padding-right: 40px;
+  z-index: 1;
 
   > h5{
     margin: 0;
@@ -58,4 +59,17 @@ export const TimerInput = styled.input`
   &:focus{
     outline: 0;
   }
+`;
+
+export const SearchTaskList = FlexColumn.extend`
+  width:100%;
+  background: ${darkWhite};
+  height: 50px;
+  position: relative;
+  padding-left: 80px;
+  justify-content: center;
+  font-size:20px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 300;
+  box-shadow: 0 2px 4px rgba(0,0,0,.1), 0 -1px 0 rgba(0,0,0,.02);
 `;

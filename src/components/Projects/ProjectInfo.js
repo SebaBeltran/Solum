@@ -16,7 +16,6 @@ class ProjectInfo extends Component{
   }
 
 render(){
-  console.log(this.props)
   const {project_name, estimated_hours, tracked_hours, start_date, end_date} = this.props.project
   return(
     <FlipIn>
@@ -43,7 +42,6 @@ render(){
 }
 
 function mapStateToProps(state) {
-  console.log(state)
   const currentProject = state.projects.find( project => project.project_id === state.currentProjectId)
   return({
     project: currentProject

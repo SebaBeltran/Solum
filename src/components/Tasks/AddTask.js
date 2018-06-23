@@ -20,6 +20,8 @@ class AddTask extends Component {
 			d_date: "",
 			due_date: {date:"DD", month:"MM", year:"YYYY"},
 			color_tag: "",
+			tracked_time: 0,
+			status: "active",
 			toggle_datePicker: false
 		};
 	}
@@ -29,25 +31,22 @@ class AddTask extends Component {
 	};
 
 	handleDate = (day) =>{
-		console.log(day)
 		this.setState({due_date: {date: day.getDate(), month: day.getMonth(), year: day.getFullYear()}, d_date: day, toggle_datePicker: false })
 	}
 
 	handleToggle = (val) => {
-		console.log(val)
     this.setState({toggle_datePicker: val})
   }
 
 	addProject = () => {
-		const {task, project_id, d_date, color_tag} = this.state
-		const taskObj =  {task: task, project_id: project_id, d_date: d_date, color_tag: color_tag, user_id: this.props.user.id}
+		const {task, project_id, d_date, color_tag, tracked_time, status} = this.state
+		const taskObj =  {task: task, project_id: project_id, d_date: d_date, color_tag: color_tag, user_id: this.props.user.id, tracked_time, status}
 		this.props.addTask(taskObj)
 		this.setState({task: "", project_id: "", d_date: "", due_date: {date:"DD", month:"MM", year:"YYYY"},
  color_tag: ""});
 	};
 
 	render() {
-		console.log(this.state)
 		let mappedProject = this.props.projects.map((project, i )=>{
 			return (
 				this.props.clients.map((client, i) => {

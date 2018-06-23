@@ -98,6 +98,7 @@ app.delete(`/api/projects/:id`, ctlr.deleteProject);
 //Tasks Endpoint
 app.get("/api/tasks/:id", ctlr.getTask)
 app.post("/api/tasks", ctlr.addTask);
+app.put("/api/tasks/:id", ctlr.updateTask);
 app.delete(`/api/tasks/:id`, ctlr.deleteTask);
 
 app.listen(SERVER_PORT, ()=>console.log("Listening to port: " + SERVER_PORT ))

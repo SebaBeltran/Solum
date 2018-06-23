@@ -58,7 +58,7 @@ class Tasks extends Component {
           {mappedProject}
         </ListWrapper>
         <Div>
-          <TimeTracker/>
+          <Route path={`/user/tasks/:id`} component={TimeTracker} exact/>
           <MainContent>
           <H1>TASKS</H1>
           <Route path={`/user/tasks/`} component={AddTask} exact/>
