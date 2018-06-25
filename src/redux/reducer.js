@@ -8,7 +8,8 @@ const initialState = {
   currentDate: "",
   project_start_date: {},
   project_end_date: {},
-  tasks:[]
+  tasks:[],
+  totalTime: ""
 }
 
 const GET_USER_DATA = "GET_USER_DATA";
@@ -28,7 +29,7 @@ const GET_TASKS = "GET TASK";
 const ADD_TASK = "ADD TASK";
 const DELETE_TASK = "DELETE TASK";
 const UPDATE_TASK = "UPDATE TASK"
-
+const GET_TIME = "GET TIME"
 
 export function getUser() {
   let userData = axios.get("/auth/user").then(res => {
@@ -147,9 +148,19 @@ export function deleteTask(taskId){
 export function updateTask(body){
     console.log(body)
   let updatedTask = axios.put(`/api/tasks/${body.task_id}`, body).then(res => res.data);
+  // let updateTime = axios.put(`/api/projects/`).then(res => res.data)
   return{
     type: UPDATE_TASK,
     payload: updatedTask
+  }
+}
+
+export function getTotalTime(id){
+    let time = axios.get(`/api/tasks/${id}`).then(res => {console.log(res.data);res.data});
+    console.log(time)
+  return{
+    type: GET_TIME,
+    payload: time
   }
 }
 
@@ -169,7 +180,6 @@ export default function reducer(state = initialState, action){
     case ADD_CLIENT + "_FULFILLED":
       return Object.assign({}, state, {clients: action.payload});  
     case DELETE_CLIENT + "_FULFILLED":
-    
       return Object.assign({}, state, {clients: action.payload});    
     case GET_PROJECTS + "_FULFILLED":
       return Object.assign({}, state, {projects: action.payload})
@@ -187,7 +197,9 @@ export default function reducer(state = initialState, action){
     case DELETE_TASK + "_FULFILLED":
       return Object.assign({}, state, {tasks: action.payload});  
     case UPDATE_TASK + "_FULFILLED":
-      return Object.assign({}, state, {tasks: action.payload});    
+      return Object.assign({}, state, {tasks: action.payload});
+    case GET_TIME + "_FULFILLED":      
+      return Object.assign({}, state, {totalTime: action.payload});
 
     default:
     return state;

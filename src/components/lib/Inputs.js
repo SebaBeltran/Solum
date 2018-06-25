@@ -17,7 +17,7 @@ export const FormWrapper = FlexRow.extend`
 
 export const InputWrapper = FlexColumn.extend` 
   background: white;
-  transition: 1s all;
+  transition: 0.6s all;
   width:100%;
   &:hover{
     > input{

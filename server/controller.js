@@ -86,7 +86,7 @@ module.exports = {
 
   getTask:(req, res) =>{
     const db = req.app.get("db");
-
+    console.log("hit getTask")
     db.get_tasks([req.params.id])
     .then(tasks => res.status(200).send(tasks))
     .catch(()=>res.sendStatus(500))
@@ -103,9 +103,17 @@ module.exports = {
   updateTask: (req, res) =>{
     const db = req.app.get("db");
     const {task_id, task, due_date, color_tag, tracked_time, status, project_id} = req.body;
-
+  
     db.update_task([task_id, task, due_date, color_tag, tracked_time, status, project_id])
     .then(tasks => res.status(200).send(tasks))
     .catch(()=>res.status(500).send())
   },
+
+  getTime: (req, res) => {
+    const db = req.app.get("db");
+    console.log("hit")
+    db.get_time([req.params.id])
+    .then(time => res.status(200).send(time))
+    .catch(()=>res.status(500).send())
+  }
 }

@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {FlexRow} from "./../lib/Base"
+import {FlexRow, FlexColumn} from "./../lib/Base"
 import { TaskWrapper, ColorTag, Checkbox, Label, Check, TaskIcon, IconWrapper, DateWrapper } from "./../lib/Tasks"
 import { H5, H4, P, Small  } from "./../lib/Typography";
 import { connect } from "react-redux"
@@ -42,9 +42,11 @@ class Task extends Component{
   let filteredTask = this.props.tasks.filter(task => task.task_id === this.props.task_id)
   filteredTask = filteredTask[0]
   const {task, due_date, color_tag, tracked_time, task_id, status } = filteredTask
-  const year = due_date.substring(0,4)
-  const month = due_date.substring(5,7)
-  const day = due_date.substring(8,10)
+  
+  // const year = due_date.substring(2,4)
+  // const month = due_date.substring(5,7)
+  // const day = due_date.substring(8,10)
+
   return(
     <TaskWrapper >
       <Checkbox type="checkbox" id="task_id" onClick={()=>this.handleChange(filteredTask)}/>
@@ -55,13 +57,25 @@ class Task extends Component{
       </Label>
       <IconWrapper>
         <DateWrapper>
-          <Small>{day} / {month} / {year}</Small>
-          <TaskIcon data-icon="&#xe075;" onClick={()=>{}}/>
+          <FlexColumn>
+            <DateWrapper>
+              <Small>{this.timeConvert(tracked_time)}</Small>
+              <TaskIcon data-icon="&#xe081;"/>
+            </DateWrapper>
+            {due_date ?  
+            <DateWrapper>
+              <Small>{due_date.substring(8,10)} / {due_date.substring(5,7)} / {due_date.substring(2,4)}</Small>
+              <TaskIcon data-icon="&#xe075;" onClick={()=>{}}/>
+            </DateWrapper>
+            :
+            null
+          }
+          </FlexColumn>
         </DateWrapper>  
-        <FlexRow> 
-          <TaskIcon data-icon="&#xe060;" onClick={()=>{}}/>
+        <DateWrapper> 
+          {/* <TaskIcon data-icon="&#xe060;" onClick={()=>{}}/> */}
           <TaskIcon data-icon="&#xe054;" onClick={()=>this.props.deleteTask(task_id)}/>
-        </FlexRow>  
+        </DateWrapper>  
       </IconWrapper>
     </TaskWrapper>  
   )

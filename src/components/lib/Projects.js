@@ -1,5 +1,5 @@
 import styled, {keyframes} from "styled-components";
-import { FlexRow, ListItem } from './Base';
+import { FlexRow, ListItem, FlexColumn } from './Base';
 
 
 export const TagWrapper = FlexRow.extend`
@@ -95,3 +95,4 @@ export const ProjectTitleWrapper = FlexRow.extend`
 export const ProjectItem = ListItem.extend`
   border-right: 6px solid ${props => props.color}
 `;
+

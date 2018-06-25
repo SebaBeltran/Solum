@@ -144,6 +144,7 @@ export const MainContent = FlexColumn.extend`
   padding: 50px;
   background-color: ${darkWhite};
   width: 100%;
+  position: relative;
 `;
 
 export const BoxColumn = FlexColumn.extend`

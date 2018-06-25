@@ -2,7 +2,7 @@ import React, {Component} from "react"
 import {HashRouter, Route, Switch} from "react-router-dom"
 // import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
-import Dashboard from "./components/Dashboard";
+import Dashboard from "./components/Dashboard/Dashboard";
 import Projects from "./components/Projects/Projects";
 import Clients from "./components/Clients/Clients";
 import Notes from "./components/Notes/Notes";

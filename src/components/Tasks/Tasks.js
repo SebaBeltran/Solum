@@ -15,7 +15,7 @@ class Tasks extends Component {
 
   componentDidMount() {
     this.props.getUser();
-    this.props.getClients();
+    this.props.getClients(this.props.user.id);
     this.props.getProjects(this.props.user.id);
     this.props.getTasks(this.props.user.id);
   }

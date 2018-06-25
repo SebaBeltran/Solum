@@ -7,7 +7,7 @@ import {Route} from "react-router-dom";
 // import EditClient from "./EditNote";
 import ClientInfo from './NoteInfo';
 // import AddNote from "./AddNote"
-import { getUser, currentClient, search } from "./../../redux/reducer";
+import { getUser, currentClient, getClients, search } from "./../../redux/reducer";
 // import AddClient from './AddNote';
 
 
@@ -101,4 +101,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, {getUser, currentClient})(Clients);
+export default connect(mapStateToProps, {getUser, getClients, currentClient})(Clients);

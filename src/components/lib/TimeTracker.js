@@ -10,7 +10,7 @@ export const TrackerWrapper = FlexRow.extend`
   background: #fff;
   box-shadow: 0 2px 4px rgba(0,0,0,.1), 0 -1px 0 rgba(0,0,0,.02);
   align-items: center;
-  padding-left: 80px;
+  // padding-left: 80px;
   padding-right: 40px;
   z-index: 1;
 
@@ -72,4 +72,42 @@ export const SearchTaskList = FlexColumn.extend`
   font-family: "Montserrat", sans-serif;
   font-weight: 300;
   box-shadow: 0 2px 4px rgba(0,0,0,.1), 0 -1px 0 rgba(0,0,0,.02);
+`;
+
+export const ColorTagWrapper = styled.div`
+  width: 100px;
+  height: 100%;
+  transition: 0.4s all;
+  position: relative;
+  z-index: 1;
+  
+`;
+
+export const DropDown = FlexColumn.extend`
+width: 100%;
+cursor:pointer;
+background: #fff;
+padding-bottom: 30px;
+box-shadow: 0 2px 4px rgba(0,0,0,.1), 0 -1px 0 rgba(0,0,0,.02);
+margin-top: 80px;
+z-index: -1;
+align-items: center;
+  > label{
+    margin: 20px auto;
+    left: 5px;
+  }
+`;
+
+export const DefaultTag = styled.div`
+position: absolute;
+top: 30px;
+left: 30px;
+height: 24px;
+width: 24px;
+background-color: ${props => props.color};
+border-radius: 50%;
+-webkit-transition: 0.4s all;
+transition: 0.4s all;
+opacity: 1;
+box-shadow: 0 2px 4px rgba(0,0,0,.1), 0 -1px 0 rgba(0,0,0,.02);
 `;
