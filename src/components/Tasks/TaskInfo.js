@@ -19,16 +19,16 @@ class TaskInfo extends Component{
 render(){
   //  const {task, due_date, color_tag} = this.props
   const mappedActive = this.props.active.map( (taskItem, i) => {
-    const { task, due_date, color_tag, task_id } = taskItem
+    const { task_id, status } = taskItem
     return(
-      <Task key={i} task_id={task_id}/>
+      <Task key={i} task_id={task_id} status={status}/>
     )
   })
 
   const mappedCompleted = this.props.completed.map( (taskItem, i) => {
-    const { task, due_date, color_tag, task_id } = taskItem
+    const { task, due_date, color_tag, task_id, status } = taskItem
     return(
-      <TaskCompleted key={i} task_id={task_id}/>
+      <TaskCompleted key={i} task_id={task_id} status={status}/>
     )
   })
 

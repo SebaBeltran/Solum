@@ -6,7 +6,7 @@ import {connect} from "react-redux";
 import {Route} from "react-router-dom";
 // import EditClient from "./EditNote";
 import ClientInfo from './NoteInfo';
-// import AddNote from "./AddNote"
+import AddNote from "./AddNote"
 import { getUser, currentClient, getClients, search } from "./../../redux/reducer";
 // import AddClient from './AddNote';
 
@@ -85,7 +85,7 @@ class Clients extends Component {
         
         <MainContent>
           <H1>NOTES</H1>
-          {/* <Route path={`/user/notes/`} component={AddNote} exact/> */}
+          <Route path={`/user/notes/`} component={AddNote} exact/>
           <Route path={`/user/notes/:id`} component={ClientInfo} exact/>
           {/* <Route path={`/user/notes/:id/edit`} component={EditClient} /> */}
         </MainContent>   

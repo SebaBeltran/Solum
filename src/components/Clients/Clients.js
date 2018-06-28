@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { FlexColumn, MainContentWrapper, ListWrapper, ListItem, ListHeader, SearchInput, MainContent, StyledLink} from "./../lib/Base";
+import { FlexColumn, MainContentWrapper, ListWrapper, ListHeader, SearchInput, MainContent, StyledLink} from "./../lib/Base";
+import { ListItem } from "./../lib/Clients"
 import { H1, H5, Small, P  } from "./../lib/Typography";
 import { ClientLogo } from "./../lib/Images";
 import {connect} from "react-redux";

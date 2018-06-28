@@ -16,9 +16,9 @@ module.exports = {
 
   updateClient: (req, res) => {
     const db =  req.app.get("db");
-    const {client_id, firstNameInput, lastNameInput, pos, company, email, phone, client_pic} = req.body
-
-    db.update_client([client_id, firstNameInput, lastNameInput, pos, company, email, phone, client_pic])
+    const {client_id, firstNameInput, lastNameInput, pos, company, email, phone, selectedImg} = req.body
+    console.log(req.body)
+    db.update_client([client_id, firstNameInput, lastNameInput, pos, company, email, phone, selectedImg])
     .then(clients => res.status(200).send(clients))
     .catch(()=>res.status(500).send())
   },
@@ -60,7 +60,6 @@ module.exports = {
 
   deleteProject: (req, res) => {
     const db = req.app.get("db");
-    console.log(req.params.id);
 
     db.delete_project([req.params.id])
     .then(projects => res.status(200).send(projects))
@@ -86,7 +85,7 @@ module.exports = {
 
   getTask:(req, res) =>{
     const db = req.app.get("db");
-    console.log("hit getTask")
+    
     db.get_tasks([req.params.id])
     .then(tasks => res.status(200).send(tasks))
     .catch(()=>res.sendStatus(500))
@@ -102,18 +101,36 @@ module.exports = {
 
   updateTask: (req, res) =>{
     const db = req.app.get("db");
-    const {task_id, task, due_date, color_tag, tracked_time, status, project_id} = req.body;
-  
-    db.update_task([task_id, task, due_date, color_tag, tracked_time, status, project_id])
+    const {task_id, task, d_date, color_tag, tracked_time, status, project_id, completed_date} = req.body;
+    
+    console.log(req.body)
+    db.update_task([task_id, task, d_date, color_tag, tracked_time, status, project_id, completed_date])
     .then(tasks => res.status(200).send(tasks))
     .catch(()=>res.status(500).send())
   },
 
   getTime: (req, res) => {
     const db = req.app.get("db");
-    console.log("hit")
+    
     db.get_time([req.params.id])
     .then(time => res.status(200).send(time))
     .catch(()=>res.status(500).send())
+  },
+
+  getProductivity: (req, res) => {
+    const db = req.app.get("db");
+
+    db.get_productivity([req.params.id])
+    .then(tasks => res.status(200).send(tasks))
+    .catch(() => res.status(500).send())
+  },
+
+  addNote: (req, res) => {
+    const db = req.app.get("db");
+    const {project_id, user_id, content, title} = req.body;
+
+    db.addnotes([project_id, user_id, content, title])
+    .then(notes => res.status(200).send(notes))
+    .catch(() => res.status(500).send())
   }
 }

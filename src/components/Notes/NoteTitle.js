@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {EditInput} from "./../lib/Base";
+import {EditInput} from "./../lib/Inputs";
 
 export default class NoteTitle extends Component {
   constructor(props) {

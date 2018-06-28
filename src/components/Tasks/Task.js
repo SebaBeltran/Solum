@@ -4,6 +4,7 @@ import { TaskWrapper, ColorTag, Checkbox, Label, Check, TaskIcon, IconWrapper, D
 import { H5, H4, P, Small  } from "./../lib/Typography";
 import { connect } from "react-redux"
 import {deleteTask, updateTask} from "./../../redux/reducer";
+import moment from "moment"
 
 class Task extends Component{
   constructor(props){
@@ -13,8 +14,8 @@ class Task extends Component{
   }
 
   handleChange = task => {
-    console.log(task)
-    const body = Object.assign({}, task, {status: "completed"})
+    console.log("active", task)
+    const body = Object.assign({}, task, {status: "completed", completed_date: moment().format("YYYY-MM-DD")})
     this.props.updateTask(body)
   }
 
@@ -49,7 +50,12 @@ class Task extends Component{
 
   return(
     <TaskWrapper >
+      {/* {this.props.status === "active" 
+      ? */}
       <Checkbox type="checkbox" id="task_id" onClick={()=>this.handleChange(filteredTask)}/>
+       {/* :
+       <Checkbox type="checkbox" checked id="task_id" onClick={()=>this.handleChange(filteredTask)}/>
+      } */}
       <Label for="task_id">
         <ColorTag color={color_tag}/>
         <Check/> 

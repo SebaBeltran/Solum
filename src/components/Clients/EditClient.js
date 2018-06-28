@@ -5,13 +5,25 @@ import { H5, Label  } from "./../lib/Typography";
 import { EditClientLogo} from "./../lib/Images";
 import { connect } from "react-redux";
 import {updateClient, deleteClient} from "./../../redux/reducer";
+import S3FileUpload from 'react-s3';
+import { uploadFile } from 'react-s3';
+require('dotenv').config()
+
+const {REACT_APP_AWSAccessKeyId, REACT_APP_AWSSecretKey} = process.env 
+const config = {
+  bucketName: 'pmff',
+  // dirName: 'profile_photos',
+  region: 'us-east-2',
+  accessKeyId: REACT_APP_AWSAccessKeyId,
+  secretAccessKey: REACT_APP_AWSSecretKey,
+}
 
 class EditClient extends Component{
   constructor(props){
     super(props);
 
     this.state = {
-      selectedImg: null,
+      selectedImg: this.props.client.client_pic,
       firstNameInput: this.props.client.first_name,
       lastNameInput: this.props.client.last_name,
       pos: this.props.client.pos,
@@ -21,8 +33,12 @@ class EditClient extends Component{
     }
   }
 
-  fileSelectedHandler = event =>{
-    this.setState({selectedImg: event.target.files[0]})
+  upload = e => {
+    S3FileUpload.uploadFile(e.target.files[0], config)
+      .then(data => this.setState({selectedImg: data.location}))
+      .catch( err => console.log(err))
+
+      //data.location
   }
 
   handleInputs = (val) =>{
@@ -35,7 +51,10 @@ class EditClient extends Component{
     this.props.updateClient(body);
   }
 
+
+
   render(){
+    console.log(this.state)
     const { firstNameInput, lastNameInput, pos, company, email, phone, selectedImg} = this.state;
     return(
       <FlipIn>
@@ -47,7 +66,7 @@ class EditClient extends Component{
          </EditMenu>
           <AddPic
 							type="file"
-							onChange={this.fileSelectedHandler}
+							onChange={this.upload}
 							innerRef={fileInput => this.fileInput = fileInput}
 						/>
 						<EditClientLogo
@@ -55,7 +74,7 @@ class EditClient extends Component{
 							pad="60px"
 							src={
 								selectedImg !== null ? (
-									`url(${selectedImg}`
+									`url(${this.state.selectedImg})`
 								) : (
 									`url(http://philosophy.ucr.edu/wp-content/uploads/2014/10/no-profile-img-240x300.gif)`
 								)

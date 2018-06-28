@@ -78,7 +78,7 @@ class Sidebar extends Component {
           </MenuItem>
         </LinkWithComponent>
 
-        <MenuLink href="http://localhost:3005/auth/logout">
+        <MenuLink href={process.env.REACT_APP_LOGOUT}>
           <MenuItem>
             <MenuIcon data-icon="&#xe065;"></MenuIcon>
             <MenuText toggle={this.state.toggle}>Logout</MenuText>

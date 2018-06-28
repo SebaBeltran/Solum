@@ -96,3 +96,9 @@ export const ProjectItem = ListItem.extend`
   border-right: 6px solid ${props => props.color}
 `;
 
+// export const TaskIcon = styled.span`
+//   margin:0 5px;
+//   &:hover{
+//     color:${red};
+//   }
+// `;

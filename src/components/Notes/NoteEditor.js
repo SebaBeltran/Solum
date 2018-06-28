@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import Editor, { createEditorStateWithText } from 'draft-js-plugins-editor';
+import Editor, { createEditorStateWithText, convertFromRaw, convertToRaw } from 'draft-js-plugins-editor';
 
 import createInlineToolbarPlugin, { Separator } from 'draft-js-inline-toolbar-plugin';
 import {
@@ -17,6 +17,8 @@ import {
   CodeBlockButton,
 } from 'draft-js-buttons';
 import editorStyles from './EditorStyles.css';
+
+import { SaveBtn} from './../lib/Base';
 
 
 class HeadlinesPicker extends Component {
@@ -86,7 +88,7 @@ const inlineToolbarPlugin = createInlineToolbarPlugin({
 });
 const { InlineToolbar } = inlineToolbarPlugin;
 const plugins = [inlineToolbarPlugin];
-const text = 'In this editor a toolbar shows up once you select part of the text …';
+const text = 'Feel free to type whatever you want';
 
 export default class CustomInlineToolbarEditor extends Component {
 
@@ -104,8 +106,15 @@ export default class CustomInlineToolbarEditor extends Component {
     this.editor.focus();
   };
 
+  save = () =>{
+    // const rawDraftContentState =  )
+    console.log(this.state.editorState);
+  }
+
   render() {
+    console.log(this.state.editorState)
     return (
+      <div>
       <div className={editorStyles.editor} onClick={this.focus}>
         <Editor
           editorState={this.state.editorState}
@@ -114,6 +123,8 @@ export default class CustomInlineToolbarEditor extends Component {
           ref={(element) => { this.editor = element; }}
         />
         <InlineToolbar />
+      </div>
+      <SaveBtn onClick={() => this.save()}>Save</SaveBtn>
       </div>
     );
   }

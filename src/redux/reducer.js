@@ -9,7 +9,8 @@ const initialState = {
   project_start_date: {},
   project_end_date: {},
   tasks:[],
-  totalTime: ""
+  totalTime: "",
+  weekProductivity: []
 }
 
 const GET_USER_DATA = "GET_USER_DATA";
@@ -28,8 +29,12 @@ const UPDATE_PROJECT = "ADD PROJECT";
 const GET_TASKS = "GET TASK";
 const ADD_TASK = "ADD TASK";
 const DELETE_TASK = "DELETE TASK";
-const UPDATE_TASK = "UPDATE TASK"
-const GET_TIME = "GET TIME"
+const UPDATE_TASK = "UPDATE TASK";
+const GET_TIME = "GET TIME";
+
+const GET_PRODUCTIVITY = "GET_PRODUCTIVITY"
+
+const ADD_NOTE = "ADD_NOTE"
 
 export function getUser() {
   let userData = axios.get("/auth/user").then(res => {
@@ -83,6 +88,7 @@ export function addClient(userId, body){
 
 export function getProjects(id){
   let projectsData = axios.get(`/api/projects/${id}`).then(res => res.data);
+  console.log(projectsData)
   return{
     type: GET_PROJECTS,
     payload: projectsData
@@ -130,7 +136,7 @@ export function getTasks(id){
 
 export function addTask(body){
   let updatedTaskList = axios.post("/api/tasks", body).then(res => res.data);
-
+  console.log("add ", body)
   return{
     type: ADD_TASK,
     payload: updatedTaskList
@@ -146,9 +152,8 @@ export function deleteTask(taskId){
 }
 
 export function updateTask(body){
-    console.log(body)
+  console.log("update ", body)
   let updatedTask = axios.put(`/api/tasks/${body.task_id}`, body).then(res => res.data);
-  // let updateTime = axios.put(`/api/projects/`).then(res => res.data)
   return{
     type: UPDATE_TASK,
     payload: updatedTask
@@ -156,11 +161,26 @@ export function updateTask(body){
 }
 
 export function getTotalTime(id){
-    let time = axios.get(`/api/tasks/${id}`).then(res => {console.log(res.data);res.data});
-    console.log(time)
+  let time = axios.get(`/api/tasks/${id}`).then(res => res.data);
   return{
     type: GET_TIME,
     payload: time
+  }
+}
+
+export function getProductivity(id){
+  let tasks = axios.get(`/api/tasks/${id}`).then(res => res.data);
+  return{
+    type: GET_PRODUCTIVITY,
+    payload: tasks
+  }
+}
+
+export function addNote(body){
+  let notes = axios.post("/api/notes", body).then(res => res.data);
+  return{
+    type: ADD_NOTE,
+    payload: notes
   }
 }
 
@@ -200,6 +220,9 @@ export default function reducer(state = initialState, action){
       return Object.assign({}, state, {tasks: action.payload});
     case GET_TIME + "_FULFILLED":      
       return Object.assign({}, state, {totalTime: action.payload});
+
+    case GET_PRODUCTIVITY + "_FULFILLED":      
+      return Object.assign({}, state, {weekProductivity: action.payload});
 
     default:
     return state;

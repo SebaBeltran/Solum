@@ -121,6 +121,7 @@ export const ListItem = FlexRow.extend`
     color: ${darkWhite};
     cursor: pointer;
   }
+  
 `;
 
 export const ListItemTitle = FlexColumn.extend`
@@ -186,13 +187,11 @@ export const ContactFront = BoxColumn.extend`
 
 const flipin = keyframes`
 0% {
-  // transform: translateX(500px) ;
   transform: rotateY(90deg);
   opacity: 0;
 }
 
 100% {
-  // transform: translateX(0);
   transform: rotateX(0deg)
   opacity: 1;
 }
@@ -210,7 +209,6 @@ export const ContactFooter = FlexRow.extend`
   position: absolute;
   bottom: 0;
   
-
   > div:nth-child(2){
     border-left: 1px solid black;
     border-right: 1px solid black;

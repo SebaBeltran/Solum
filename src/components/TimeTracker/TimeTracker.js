@@ -8,6 +8,8 @@ import {TagSelector, TagLabel, TagCheck, TagWrapper} from "./../lib/Projects"
 import { H5, Small } from './../lib/Typography';
 import { connect } from 'react-redux';
 import { updateTask, addTask } from './../../redux/reducer';
+import moment from "moment"
+
 
 class TimeTracker extends Component {
 	constructor() {
@@ -64,7 +66,7 @@ class TimeTracker extends Component {
     const currenTask = this.state.tasksList.filter(obj => obj.task === val)
     const { task, color_tag, tracked_time, task_id, due_date, client_id } = currenTask[0]
 
-		this.setState({ tasksList: [], trackingTask: task, color_tag: color_tag, time: tracked_time, task_id: task_id, d_date: due_date, client_id: client_id});
+		this.setState({ tasksList: [], trackingTask: task, color_tag: color_tag, time: tracked_time, task_id: task_id, d_date: due_date ? due_date : moment().format("YYYY-MM-DD"), client_id: client_id});
 	};
 
 	checkTimer = () => {
@@ -74,7 +76,7 @@ class TimeTracker extends Component {
 		//if timerId is not 0, timer is running, so stop it
 		if(this.state.timerId !== 0){
 			clearInterval(this.state.timerId);
-			this.setState({ isRunning: false, tasksList: [], time: 0, trackingTask: "", color_tag: "lightGrey", toggleDropDown: false, timerId: 0 });
+			this.setState({ isRunning: false, tasksList: [], time: 0, trackingTask: "", color_tag: "lightGrey", toggleDropDown: false, timerId: 0, task_id: "" });
 
 
 			const body = {
@@ -83,7 +85,7 @@ class TimeTracker extends Component {
 				task: trackingTask,
 				tracked_time: time,
 				status: 'active',
-				d_date: d_date === "" ? new Date() : d_date,
+				d_date: !d_date ? moment().format("YYYY-MM-DD") : d_date,
 				color_tag: color_tag,
 				user_id: this.props.user.id
 			};
@@ -94,9 +96,7 @@ class TimeTracker extends Component {
 			this.setState({timerId: setInterval(() => {
 				this.setState({ time: currentTime += 1 });
 			}, 1000) })
-			
-			// const {task_id, d_date, time, trackingTask, color_tag} = this.state
-			
+					
 			if (!this.state.task_id) {
 				const body = {
 					user_id: this.props.user.id,
@@ -104,7 +104,7 @@ class TimeTracker extends Component {
 					task: trackingTask,
 					tracked_time: time,
 					status: 'active',
-					d_date: new Date(),
+					d_date: !d_date ? moment().format("YYYY-MM-DD") : d_date,
 					color_tag: color_tag
 				};
 					this.props.addTask(body);
@@ -116,46 +116,13 @@ class TimeTracker extends Component {
 					task: trackingTask,
 					tracked_time: time,
 					status: 'active',
-					d_date: d_date === null ? new Date() : d_date,
+					d_date: !d_date ? moment().format("YYYY-MM-DD") : d_date,
 					color_tag: color_tag,
 					user_id: this.props.user.id
 				};
 				this.props.updateTask(body);
 			}
-		}
-
-
-			
-		// 	const {task_id, d_date, time, trackingTask, color_tag, client_id} = this.state
-
-		// 	//if there is no task_id, then create a new task
-		// 	if (!this.state.task_id) {
-		// 		const body = {
-		// 			user_id: this.props.user.id,
-		// 			project_id: this.props.match.params.id,
-		// 			task: trackingTask,
-		// 			tracked_time: time,
-		// 			status: 'active',
-		// 			d_date: new Date(),
-		// 			color_tag: color_tag
-		// 		};
-		// 		this.props.addTask(body);
-
-		// 	//if there is a task with that input, then modify that task	
-		//   } else {
-    //     const body = {
-    //       task_id: task_id,
-		// 			project_id: this.props.match.params.id,
-		// 			task: trackingTask,
-		// 			tracked_time: time,
-		// 			status: 'active',
-		// 			d_date: d_date === null ? new Date() : d_date,
-		// 			color_tag: color_tag,
-		// 			user_id: this.props.user.id
-		// 		};
-    //     this.props.updateTask(body);			
-    //   } 
-		// }			
+		}	
 	};
 
 	timeConvert = (num) => {
@@ -173,7 +140,6 @@ class TimeTracker extends Component {
 	};
 
 	render() {
-		console.log(this.state)
 		const mappedList = this.state.tasksList.map((task, i) => {
 			return (
 				<SearchTaskList key={i} onClick={() => this.handleSelection(task.task)}>
@@ -282,7 +248,7 @@ class TimeTracker extends Component {
 					</ColorTagWrapper>
 					<FlexRow>
 						<TimerInput
-							value={this.state.trackingTask ? this.state.trackingTask : null}
+							value={this.state.trackingTask ? this.state.trackingTask : ""}
 							placeholder="What are you working on?"
 							name="trackingTask"
 							onChange={(e) => this.handleInputs(e)}

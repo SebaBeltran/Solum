@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { ContactFront, FlexColumn, FlexRow, AddPic, FlipIn, InputWrapper, EditInput, FormWrapper, SaveBtn, EditorWrapper} from './../lib/Base';
 import { H1, H2, H3, H4, H5, H6, P, Small, Label } from './../lib/Typography';
 import { connect } from 'react-redux';
-import { addClient } from './../../redux/reducer';
+import { addNote } from './../../redux/reducer';
 
 import NoteEditor from "./NoteEditor"
 import "./Notes.css"
@@ -25,7 +25,6 @@ class AddClient extends Component {
 		this.setState({ [val.target.name]: val.target.value });
 	};
 
-
 	render() {
 		var today = new Date();
 		var dd = today.getDate();
@@ -43,11 +42,7 @@ class AddClient extends Component {
 					<NoteEditor />
 				{/* <Editor editorState={this.state.editorState} onChange={this.onChange} placeholder="Type something" /> */}
 
-					<SaveBtn
-						onClick={() => {}}
-					>
-						Save
-					</SaveBtn>
+					{/* <SaveBtn onClick={() => {}}>Save</SaveBtn> */}
 				</EditorWrapper>
 			</FlipIn>
 		);
@@ -59,4 +54,4 @@ function mapStateToProps(state) {
 	};
 }
 
-export default connect(mapStateToProps, { addClient })(AddClient);
+export default connect(mapStateToProps, { addNote })(AddClient);

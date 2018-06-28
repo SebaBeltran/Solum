@@ -4,6 +4,7 @@ import { H4, H6, P  } from "./../lib/Typography";
 import { ClientLogoBig } from "./../lib/Images";
 import {connect} from "react-redux";
 import {deleteClient} from "./../../redux/reducer";
+import ContactForm from "./ContactForm";
 
 
 class ClientInfo extends Component{
@@ -47,6 +48,7 @@ render(){
 
             </ContactFooter>
           </ContactFront>
+          <ContactForm />
         </FlipIn>
   )
 }
