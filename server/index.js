@@ -139,16 +139,16 @@ app.post('/send', function(req, res, next) {
       port: 465,
       secure: true, // true for 465, false for other ports
       auth: {
-          user: `${process.env.TEST_USER}`, // generated ethereal user
-          pass: `${process.env.TEST_PASS}` // generated ethereal password
+          user: `${process.env.EMAIL_USER}`, // generated ethereal user
+          pass: `${process.env.EMAIL_PASS}` // generated ethereal password
       }
   });
   const mailOptions = {
-    from: `${process.env.TEST_USER}`,
+    from: `${process.env.EMAIL_USER}`,
     to: `${req.body.email}`,
     subject: `${req.body.subject}`,
     html: output,
-    replyTo: `${process.env.TEST_USER}`
+    replyTo: `${process.env.EMAIL_USER}`
   }
   transporter.sendMail(mailOptions, function(err, res) {
     if (err) {

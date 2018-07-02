@@ -7,11 +7,7 @@
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
     "chart.js": "^2.7.2",
-    "dotenv": "^5.0.1",
-    "draft-js": "^0.10.5",
-    "draft-js-divider-plugin": "^0.2.1",
-    "draft-js-inline-toolbar-plugin": "^2.0.3",
-    "draft-js-plugins-editor": "^2.1.1",
+    "dotenv": "^6.0.0",
     "express": "^4.16.3",
     "express-session": "^1.15.6",
     "massive": "^4.8.3",
@@ -30,8 +26,7 @@
     "react-scripts": "1.1.4",
     "redux": "^4.0.0",
     "redux-promise-middleware": "^5.1.1",
-    "styled-components": "^3.3.2",
-    "xoauth2": "^1.2.0"
+    "styled-components": "^3.3.2"
   },
   "scripts": {
     "start": "react-scripts start",
