@@ -5,6 +5,16 @@ import { H1, H2, H3, H4, H5, H6, P, Small, Label } from './../lib/Typography';
 import { EditClientLogo} from './../lib/Images';
 import { connect } from 'react-redux';
 import { addClient } from './../../redux/reducer';
+import S3FileUpload from 'react-s3';
+require('dotenv').config()
+
+const {REACT_APP_AWSAccessKeyId, REACT_APP_AWSSecretKey} = process.env 
+const config = {
+  bucketName: 'pmff',
+  region: 'us-east-2',
+  accessKeyId: REACT_APP_AWSAccessKeyId,
+  secretAccessKey: REACT_APP_AWSSecretKey,
+}
 
 class AddClient extends Component {
 	constructor() {
@@ -21,9 +31,14 @@ class AddClient extends Component {
 		};
 	}
 
-	fileSelectedHandler = (event) => {
-		this.setState({ selectedImg: event.target.files[0] });
-	};
+  upload = e => {
+		console.log(e.target.files[0])
+    S3FileUpload.uploadFile(e.target.files[0], config)
+      .then(data => this.setState({selectedImg: data.location}))
+      .catch( err => console.log(err))
+
+      //data.location
+  }
 
 	handleInputs = (val) => {
 		this.setState({ [val.target.name]: val.target.value });
@@ -46,17 +61,17 @@ class AddClient extends Component {
 		return (
 			<FlipIn>
 				<ContactFront>
-          <AddPic
+				<AddPic
 							type="file"
-							onChange={this.fileSelectedHandler}
-							innerRef={(fileInput) => (this.fileInput = fileInput)}
+							onChange={this.upload}
+							innerRef={fileInput => this.fileInput = fileInput}
 						/>
 						<EditClientLogo
 							ml="40px"
 							pad="60px"
 							src={
 								selectedImg !== null ? (
-									`url(${selectedImg}`
+									`url(${selectedImg})`
 								) : (
 									`url(http://philosophy.ucr.edu/wp-content/uploads/2014/10/no-profile-img-240x300.gif)`
 								)

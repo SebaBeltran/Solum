@@ -11,8 +11,8 @@ import { DatePickerWrapper } from '../lib/DatePicker';
 
 
 class AddProject extends Component {
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 
 		this.state = {
 			project_name: "",
@@ -23,7 +23,7 @@ class AddProject extends Component {
 			start_date: {date:"DD", month:"MM", year:"YYYY"},
 			end_date: {date:"DD", month:"MM", year:"YYYY"},
 			color_tag: "",
-			rate: 0,
+			rate: this.props.user.rate,
 			toggle_datePicker: false
 		};
 	}

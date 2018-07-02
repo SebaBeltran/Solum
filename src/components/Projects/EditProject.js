@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { ContactFront, FlexColumn, FlexRow, AddPic, FlipIn, SaveLink, EditIcon, StyledLink, EditMenu } from "./../lib/Base";
+import { ContactFront, FlexColumn, FlexRow, FlipIn, SaveLink, EditIcon, StyledLink, EditMenu } from "./../lib/Base";
 import { FormWrapper, InputWrapper, EditInput, DateInput, SelectInput, RateWrapper } from "./../lib/Inputs";
 import { H4, H5, Label } from './../lib/Typography';
 import {tag_blue, tag_green, tag_lightblue, tag_orange, tag_pink, tag_red, tag_violet, tag_yellow} from "./../lib/Colors";

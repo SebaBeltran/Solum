@@ -1,10 +1,9 @@
 import React, {Component} from "react";
-import { FlexColumn, ContactFront,  ContactFooter, ContactIcon, A, EditIcon, FlipIn, EditMenu, ThreeDots, IconLink } from "./../lib/Base";
+import { FlexColumn, ContactFront,  ContactFooter, ContactIcon, A, EditIcon, FlipIn, EditMenu, ThreeDots, IconLink, ContactLink } from "./../lib/Base";
 import { H4, H6, P  } from "./../lib/Typography";
 import { ClientLogoBig } from "./../lib/Images";
 import {connect} from "react-redux";
 import {deleteClient} from "./../../redux/reducer";
-import ContactForm from "./ContactForm";
 
 
 class ClientInfo extends Component{
@@ -31,9 +30,9 @@ render(){
             <P>{pos} at</P>
             <ContactFooter justify="space-around">
               <FlexColumn>
-                <A href={`mailto:${email}`}>
+                <ContactLink to={`/user/clients/${this.props.match.params.id}/contact`}>
                   <ContactIcon data-icon="&#xe086;" />
-                </A>
+                </ContactLink>
               </FlexColumn>
 
               <FlexColumn>
@@ -42,13 +41,12 @@ render(){
                 </A>
               </FlexColumn>
 
-              <FlexColumn>
+              {/* <FlexColumn>
                 <ContactIcon data-icon="&#xe07d;" />
-              </FlexColumn>
+              </FlexColumn> */}
 
             </ContactFooter>
           </ContactFront>
-          <ContactForm />
         </FlipIn>
   )
 }

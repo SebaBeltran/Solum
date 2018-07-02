@@ -1,23 +1,30 @@
 import React, { Component } from 'react';
 import {Link} from "react-router-dom"
-import { getUser } from "./../redux/reducer";
+import { getUser } from "./../../redux/reducer";
 import {connect} from "react-redux"
-import { SidebarWrapper, FlexColumn, MenuWrapper, MenuLink, MenuItem, MenuIcon, MenuText} from "./lib/Base"
-import { P } from "./lib/Typography"
-import { Avatar, ProfileImg } from "./lib/Images"
+import { SidebarWrapper, FlexColumn, MenuWrapper, MenuLink, MenuItem, MenuIcon, MenuText} from "./../lib/Base"
+import { P } from "./../lib/Typography"
+import { Avatar, ProfileImg } from "./../lib/Images"
 
 class Sidebar extends Component {
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
 
-    this.state={
-      toggle: false,
-    }
+    this.state = {
+			user_name: this.props.user.user_name,
+			profile_img: this.props.user.profile_img
+		};
     this.handleHover = this.handleHover.bind(this)
   }
 
   componentDidMount() {
     this.props.getUser();
+  }
+
+  componentDidUpdate(prevProps) {
+     if(prevProps.user.user_name !== this.props.user.user_name || prevProps.user.profile_img !== this.props.user.profile_img){
+        this.props.getUser();
+     }
   }
 
   handleHover(){
@@ -26,12 +33,12 @@ class Sidebar extends Component {
   
   render() {
     const LinkWithComponent = MenuLink.withComponent(Link);
-    let { user_name, profile_pic, auth_id } = this.props.user;
+    let { user_name } = this.props.user;
     return (
       <SidebarWrapper toggle={this.state.toggle} onMouseEnter={()=>this.handleHover()} onMouseLeave={()=>this.handleHover()}>
       <FlexColumn>
-        <ProfileImg src="url('https://images.unsplash.com/photo-1496105463139-c6c6f14dedf7?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=d8ed34974e1326b9ffdb0c5b1d4a2774&auto=format&fit=crop&w=668&q=80')"/>   
-        <Avatar src="url('https://images.unsplash.com/photo-1496105463139-c6c6f14dedf7?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=d8ed34974e1326b9ffdb0c5b1d4a2774&auto=format&fit=crop&w=668&q=80')"/>
+        <ProfileImg src={`url(${this.props.user.profile_img})`}/>   
+        <Avatar src={`url(${this.props.user.profile_img})`}/>
         <P align="center" toggle={this.state.toggle}>{user_name}</P>
       </FlexColumn>
       <MenuWrapper>
@@ -64,12 +71,12 @@ class Sidebar extends Component {
           </MenuItem>
         </LinkWithComponent>
 
-        <LinkWithComponent to="/user/Notes">
+        {/* <LinkWithComponent to="/user/Notes">
           <MenuItem>
             <MenuIcon data-icon="&#xe013;"></MenuIcon>
             <MenuText toggle={this.state.toggle}>notes</MenuText>
           </MenuItem>
-        </LinkWithComponent>
+        </LinkWithComponent> */}
 
         <LinkWithComponent to="/user/Settings">
           <MenuItem>

@@ -1,15 +1,9 @@
-import styled, {keyframes, injectGlobal} from "styled-components";
-import {gradientRedTop, gradientRedLeft, gradientGreyLeft, falseGradientGreyLeft,red, black, blue, darkWhite, lightGrey} from "./Colors";
+import styled from "styled-components";
+import {lightGrey} from "./Colors";
 import { FlexColumn, FlexRow} from './Base';
 
 
 export const FormWrapper = FlexRow.extend`
-  // div:nth-child(1){
-  //   margin-left: -1
-  // }
-  // div:nth-child(2){
-  //   margin-left: -1
-  // }
   > div {
     padding: 0 20px 10px;
   }
@@ -44,6 +38,25 @@ export const EditInput = styled.input`
     background: ${lightGrey};
   }
 `;
+
+export const ContactTextArea = styled.textarea`
+font-family: "Montserrat", sans-serif;
+font-weight: 300;
+width: 100%;
+border: none;
+padding:5px 20px;
+height: 300px;
+font-size:20px;
+transition: 0.5s;
+border: 1px solid ${lightGrey};
+border-radius:4px;
+:focus{
+  border: none;
+  outline: none;
+  background: ${lightGrey};
+}
+`;
+
 export const DatesWrapper = FlexRow.extend`
   justify-content: space-between
 `;
@@ -94,4 +107,14 @@ export const SelectInput = styled.select`
     outline: none;
     background: ${lightGrey};
   }
+`;
+export const FormImgWrapper = FlexRow.extend`
+width: 50%;
+  > div {
+    padding: 0 20px 10px;
+  }
+`;
+export const EditRateWrapper = RateWrapper.extend`
+width: 30%;
+min-width: 80px;
 `;

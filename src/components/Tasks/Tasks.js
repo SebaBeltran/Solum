@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FlexColumn, MainContentWrapper, ListWrapper, Div, ListHeader, SearchInput, MainContent, StyledLink, FlexRow} from "./../lib/Base";
+import { FlexColumn, MainContentWrapper, ListWrapper, Div, ListHeader, SearchInput, MainContentTimer, StyledLink, FlexRow} from "./../lib/Base";
 import {TagColor, ProjectTitleWrapper, ProjectItem} from "./../lib/Projects"
 import { H1, H5, Small, P  } from "./../lib/Typography";
 import {connect} from "react-redux";
@@ -9,16 +9,45 @@ import TaskInfo from './TaskInfo';
 import { getUser, getClients, getProjects, currentProject, getTasks } from "./../../redux/reducer";
 import AddTask from './AddTask';
 import TimeTracker from "./../TimeTracker/TimeTracker"
+import {SlideToRight} from "./../lib/animations";
+import TimeTrackerDashboard from '../TimeTracker/TimeTrackerDashboard';
+// import TimeTrackerDashboard from '../TimeTracker/TimeTrackerDashboard';
 
 
 class Tasks extends Component {
+  constructor(){
+    super();
+
+    this.state = {
+      searchInput: "",
+      projectsList: []
+    }
+    this.handleSearch = this.handleSearch.bind(this)
+  }
+
 
   componentDidMount() {
     this.props.getUser();
     this.props.getClients(this.props.user.id);
     this.props.getProjects(this.props.user.id);
     this.props.getTasks(this.props.user.id);
+    this.handleSearch("");
   }
+
+  handleSearch(val) {
+    if(!val){
+      this.setState({searchInput: "", projectsList: this.props.projects})
+    }
+    else{
+      let filtered = this.props.projects.filter(obj => {
+        if( obj.project_name.toLowerCase().includes(val.toLowerCase())) {
+          return true
+        }  
+      })
+      this.setState({searchInput: val, projectsList: filtered})
+    }
+  }
+
 
   getClientName = project_id => {
     const currentProject = this.props.projects.find( project => project.project_id === project_id)
@@ -26,12 +55,30 @@ class Tasks extends Component {
     return currentClient.company
   }
 
+  timeConvert = (num) => {
+    let hours = (num/60 >= 60) ? 
+                Math.floor(num/60/60) < 10 ? 
+                  "0" +  Math.floor(num/60/60) : 
+                  Math.floor(num/60/60) 
+                : "00";
+
+    let minutes = (num/60 < 60) ? 
+                    Math.floor(num/60 < 10) ?
+                      "0" + Math.floor(num/60) : 
+                      Math.floor(num/60) :
+                  (num/60%60 < 10) ?
+                  "0" + Math.floor(num/60%60) :
+                  Math.floor(num/60%60);
+    
+    return hours + ":" + minutes;     
+  }
+
   render() {
-    let mappedProject = this.props.projects.map((project, i) => {
-      const {project_id, project_name, estimated_hours, tracked_hours, start_date, end_date, color_tag} = project;
+    let mappedProject = this.state.projectsList.map((project, i) => {
+      const {project_id, project_name, estimated_hours, tracked_time, start_date, end_date, color_tag} = project;
       return(
-        
         <StyledLink key={i} to={`/user/tasks/${project_id}`} onClick={()=>{this.props.currentProject(project_id)}}>
+          <SlideToRight>
         <ProjectItem  id={project_id} project={project} color={color_tag}>
           <FlexColumn>
           <Small mt="0" mb="10" ml="0px" lineH="1.9">{this.getClientName(project_id)}</Small>  
@@ -40,11 +87,12 @@ class Tasks extends Component {
             <TagColor color={color_tag}/>
           </ProjectTitleWrapper>  
             <FlexRow>
-              <Small mt="0" mb="10" ml="0px" lineH="1.9">{tracked_hours}</Small>
+              <Small mt="0" mb="10" ml="0px" lineH="1.9">{this.timeConvert(tracked_time)}</Small>
               <Small mt="0" mb="10" ml="0px" lineH="1.9">/ {estimated_hours}</Small>
             </FlexRow>
             </FlexColumn>
           </ProjectItem>
+          </SlideToRight>
           </StyledLink>
       )
     })
@@ -52,19 +100,20 @@ class Tasks extends Component {
       <MainContentWrapper>
         <ListWrapper>
           <ListHeader>
-            <SearchInput />
-            <Small lineH="2.5">Press Enter to submit</Small>
+            <SearchInput value={this.state.searchInput} onChange={(e)=>this.handleSearch(e.target.value)}/>
+            <Small lineH="2.5">Search projects</Small>
           </ListHeader>
           {mappedProject}
         </ListWrapper>
         <Div>
+        <Route path={`/user/tasks`} component={TimeTrackerDashboard} exact/>
           <Route path={`/user/tasks/:id`} component={TimeTracker} exact/>
-          <MainContent>
+          <MainContentTimer>
           <H1>TASKS</H1>
           <Route path={`/user/tasks/`} component={AddTask} exact/>
           <Route path={`/user/tasks/:id`} component={TaskInfo} exact/>
           {/* <Route path={`/user/tasks/:id/edit`} component={EditTask} /> */}
-        </MainContent>   
+        </MainContentTimer>   
         </Div>
       </MainContentWrapper>
     )

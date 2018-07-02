@@ -9,11 +9,13 @@ import EditClient from "./EditClient";
 import ClientInfo from './ClientInfo';
 import { getUser, getClients, currentClient, search } from "./../../redux/reducer";
 import AddClient from './AddClient';
+import ContactForm from './ContactForm';
+import {SlideToRight} from "./../lib/animations";
 
 
 class Clients extends Component {
-  constructor(props){
-    super(props);
+  constructor(){
+    super();
 
     this.state = {
       searchInput: "",
@@ -23,13 +25,14 @@ class Clients extends Component {
   }
 
   componentDidMount() {
-    this.props.getUser();
-    this.props.getClients(this.props.user.id);
-    this.handleSearch("")
+    this.props.getUser().then(()=>{
+      this.props.getClients(this.props.user.id);
+      this.handleSearch("");
+    })
   }
 
   componentDidUpdate(prevProps, nextProps){
-    if(prevProps.clients.length !== this.props.clients.length)
+    if(prevProps.clients.length !== this.props.clients.length )
     this.handleSearch("")
   }
   
@@ -53,33 +56,22 @@ class Clients extends Component {
         else{
           return false;
         }
-          
-    // let filtered = this.props.clients.filter(obj => {
-    //  let searchIn = Object.keys(obj).splice(1,5);
-    //  return searchIn.forEach(str => obj[str].includes(val))
-    // });
-    // this.setState({searchInput: val, clientsList: filtered})
-    // console.log(filtered)
-    // }
-    // console.log(filtered)
 
       })
       this.setState({searchInput: val, clientsList: filtered})
     }
   }
 
-  // compone
-
   fileSelectedHandler = event =>{
     this.setState({selectedImg: event.target.files[0]})
   }
 
   render() {
-    console.log(this.props.clients)
     let mappedClient = this.state.clientsList.map((client, i) => {
       const {client_id, first_name, last_name, pos, company, email, phone, client_pic} = client;
       return(
         <StyledLink key={i} to={`/user/clients/${client_id}`} onClick={()=>{this.props.currentClient(client_id)}}>
+        <SlideToRight>
           <ListItem  id={client_id} client={client} >
             <ClientLogo pad="20px" src={`url(${client_pic})`}/>
             <FlexColumn>  
@@ -89,6 +81,7 @@ class Clients extends Component {
               
             </FlexColumn>
           </ListItem>
+          </SlideToRight>
         </StyledLink>
       )
     })
@@ -97,7 +90,7 @@ class Clients extends Component {
         <ListWrapper>
           <ListHeader>
             <SearchInput value={this.state.searchInput} onChange={(e)=>this.handleSearch(e.target.value)}/>
-            <Small lineH="2.5">Press Enter to submit</Small>
+            <Small lineH="2.5">Search Clients</Small>
           </ListHeader>
           {mappedClient}
         </ListWrapper>
@@ -107,6 +100,7 @@ class Clients extends Component {
           <Route path={`/user/clients/`} component={AddClient} exact/>
           <Route path={`/user/clients/:id`} component={ClientInfo} exact/>
           <Route path={`/user/clients/:id/edit`} component={EditClient} />
+          <Route path={`/user/clients/:id/contact`} component={ContactForm} />
         </MainContent>   
       </MainContentWrapper>
     )

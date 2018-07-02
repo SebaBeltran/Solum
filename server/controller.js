@@ -132,5 +132,15 @@ module.exports = {
     db.addnotes([project_id, user_id, content, title])
     .then(notes => res.status(200).send(notes))
     .catch(() => res.status(500).send())
+  }, 
+
+  updateSettings: (req, res) =>{
+    const db = req.app.get("db");
+    const {user_id, user_name, profile_img, rate} = req.body;
+
+    db.update_settings([user_id, user_name, profile_img, rate])
+    .then(settings => res.status(200).send(settings))
+    .catch(() => res.status(500).send())
   }
+  
 }

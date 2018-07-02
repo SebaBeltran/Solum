@@ -12,7 +12,7 @@ export const TrackerWrapper = FlexRow.extend`
   align-items: center;
   // padding-left: 80px;
   padding-right: 40px;
-  z-index: 1;
+  z-index: 4;
 
   > h5{
     margin: 0;
@@ -79,8 +79,10 @@ export const ColorTagWrapper = styled.div`
   height: 100%;
   transition: 0.4s all;
   position: relative;
-  z-index: 1;
-  
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const DropDown = FlexColumn.extend`
@@ -89,7 +91,7 @@ cursor:pointer;
 background: #fff;
 padding-bottom: 30px;
 box-shadow: 0 2px 4px rgba(0,0,0,.1), 0 -1px 0 rgba(0,0,0,.02);
-margin-top: 80px;
+margin-top: 430px;
 z-index: -1;
 align-items: center;
   > label{
@@ -98,10 +100,35 @@ align-items: center;
   }
 `;
 
+export const ColorDropDown = FlexColumn.extend`
+width: 70px;
+left: 0px;
+margin: 430px auto 0;
+position: relative;
+cursor:pointer;
+background: #fff;
+padding-bottom: 30px;
+box-shadow: 0 2px 4px rgba(0,0,0,.1), 0 -1px 0 rgba(0,0,0,.02);
+align-items: center;
+  > label{
+    margin: 20px auto;
+    left: 5px;
+  }
+`;
+
+export const DefaultTagWrapper = styled.div`
+  height: 100%;
+  width: 100%;
+  background:red;
+  position:absolute;
+  background: white;
+  z-index:100;
+`;
+
 export const DefaultTag = styled.div`
 position: absolute;
-top: 30px;
-left: 30px;
+top: 28px;
+left: 25px;
 height: 24px;
 width: 24px;
 background-color: ${props => props.color};
@@ -110,4 +137,81 @@ border-radius: 50%;
 transition: 0.4s all;
 opacity: 1;
 box-shadow: 0 2px 4px rgba(0,0,0,.1), 0 -1px 0 rgba(0,0,0,.02);
+cursor:pointer;
+`;
+
+export const Icon = styled.span`
+font-size: 22px;
+text-align: center;
+width: auto;
+cursor: pointer;
+position: absolute;
+`;
+
+export const DashboardColorTagWrapper = styled.div`
+  width: 90px;
+  height: 100%;
+  transition: 0.4s all;
+  position: relative;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const DashboardProjectsList = FlexColumn.extend`
+  width: 400px;
+  padding:30px;
+  left: 0px;
+  margin: 265px auto 0;
+  position: absolute;
+  cursor:pointer;
+  background: #fff;
+  padding-bottom: 30px;
+  box-shadow: 0 2px 4px rgba(0,0,0,.1), 0 -1px 0 rgba(0,0,0,.02);
+  align-items: center;
+`;
+
+export const ProjectListItem = styled.div`
+  width: 100%;
+  padding: 20px;
+  &:hover{
+    background: ${lightGrey}
+  }
+`;
+
+export const SelectedProjectListItem = styled.div`
+  width: 100%;
+  padding: 20px;
+  background: ${lightGrey}
+`;
+
+export const FilteredListWrapper = FlexColumn.extend`
+  width:50%;
+  margin-left: 150px;
+  background: ${darkWhite};
+  position: absolute;
+  justify-content: center;
+  font-size:20px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 300;
+  box-shadow: 0 2px 4px rgba(0,0,0,.1), 0 -1px 0 rgba(0,0,0,.02);
+  z-index: 2;
+  top: 80px;
+`;
+export const FilteredListItem = styled.div `
+  width: 100%;
+  padding 20px 0;
+  padding-left: 30px;
+  height: 60px;
+  positon:relative;
+  cursor: pointer;
+  &:hover{
+    background: ${lightGrey}
+  }
+`;
+
+export const SimpleFilteredListWrapper = FilteredListWrapper.extend`
+  width:60%;
+  margin-left: 60px;
 `;

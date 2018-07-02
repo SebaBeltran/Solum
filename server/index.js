@@ -6,9 +6,10 @@ const express = require("express"),
       massive = require("massive"),
       ctlr = require("./controller"),
       bodyParser = require("body-parser"),
-      nodemailer = require('nodemailer');
+      nodemailer = require('nodemailer'),
+      xoauth2 = require("xoauth2")
   
-const { SERVER_PORT, SESSION_SECRET, DOMAIN, CLIENT_ID, CLIENT_SECRET, CALLBACK_URL, CONNECTION_STRING, USER, PASS, FRONTEND_URL } = process.env
+const { SERVER_PORT, SESSION_SECRET, DOMAIN, CLIENT_ID, CLIENT_SECRET, CALLBACK_URL, CONNECTION_STRING,  FRONTEND_URL } = process.env
       
 const app = express()
 
@@ -48,6 +49,7 @@ passport.use(new Auth0Strategy({
         done(null, user[0].id)
       } else{
         db.create_user([displayName, picture, id]).then( (created_user) => {
+          db.add_settings([created_user[0].id, created_user[0].profile_pic, created_user[0].user_name, 0 ])
           done(null, created_user[0].id)
         })
       }
@@ -80,7 +82,13 @@ app.get("/auth/logout", (req, res) => {
 //Endpoint to check if user is logged in.
 app.get("/auth/user", (req, res) =>{
   if(req.user){
-    res.status(200).send(req.user)
+    //console.log(req.user)
+    const db =  req.app.get("db");
+
+    db.find_user([req.user.auth_id])
+    .then(user => {res.status(200).send(user[0])})
+    .catch(error => res.status(500).send(error))
+    //res.status(200).send(req.user)
   } else {
     res.status(401).send("No, no")
   }
@@ -112,22 +120,35 @@ app.get(`/api/tasks/:id`, ctlr.getProductivity);
 //Notes Endpoints
 app.post("/api/notes/", ctlr.addNote)
 
+//Settings Endpoints
+app.put("/api/settings/:id", ctlr.updateSettings)
+
 //Contact Endpoint
 app.post('/send', function(req, res, next) {
-  console.log(PASS)
-  const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: USER,
-      pass: PASS
-    }
-  })
+  const output = 
+    `<h3 style="font-family: Arial" >Hey, ${req.body.user_name} sent you an email</h3>
+    <p style="font-family: Arial; font-size:14px; color: #41403F">${req.body.message}</p>
+    <div style="font-family: Arial; padding: 20px 20px 40px; width: 400px; background: #F0F0F0">
+    <p style="font-family: Arial; color: #41403F">Email sent using: UFO - project manager</p>
+    <a href="https://ufo.trip.com.uy" style="font-family: Arial; text-decoration: none; color: #41403F; margin-bottom:25px;">ufo.trip.com.uy</a>
+    </div>
+    `
+  
+    let transporter = nodemailer.createTransport({
+      host: 'box540.bluehost.com',
+      port: 465,
+      secure: true, // true for 465, false for other ports
+      auth: {
+          user: `${process.env.TEST_USER}`, // generated ethereal user
+          pass: `${process.env.TEST_PASS}` // generated ethereal password
+      }
+  });
   const mailOptions = {
-    from: USER,
+    from: `${process.env.TEST_USER}`,
     to: `${req.body.email}`,
     subject: `${req.body.subject}`,
-    text: `${req.body.message}`,
-    replyTo: USER
+    html: output,
+    replyTo: `${process.env.TEST_USER}`
   }
   transporter.sendMail(mailOptions, function(err, res) {
     if (err) {

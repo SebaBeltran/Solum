@@ -42,33 +42,31 @@ export const ColorTag = styled.div`
 export const Checkbox = styled.input`
   width: 100%;
   height: 100%;
-  // margin-left: 20px;
-  // display:none;
   position: absolute;
   opacity: 0;
   z-index: 5;
   cursor: pointer;
 
-  &:checked + label{
-    text-decoration: line-through;
-    opacity: 0.5;
-  }
+    &:checked + label{
+      text-decoration: line-through;
+      opacity: 0.5;
+    }
 
-  &:checked + label span{
-    background-color: transparent;
-    border-color: transparent;
-    box-shadow: none;
-  }
+    &:checked + label span{
+      background-color: transparent;
+      border-color: transparent;
+      box-shadow: none;
+    }
 
-  &:checked + label span:after{
-    transform: scale(2);
+    &:checked + label span:after{
+      transform: scale(2);
 
-  }
+    }
 
-  &:checkerd + label span:before{
-    opacity: 1;
-    transform: scale(1.3);
-    transition: opacity 300ms cubic-bezier(0.2, 0, 0, 1), transform 400ms cubic-bezier(0.3, 0, 0, 1.4);
+    &:checked + label span:before{
+      opacity: 1;
+      transform: scale(1.3);
+      transition: opacity 300ms cubic-bezier(0.2, 0, 0, 1), transform 400ms cubic-bezier(0.3, 0, 0, 1.4);
   }
 `;
 

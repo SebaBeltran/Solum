@@ -6,10 +6,19 @@ import {Link} from "react-router-dom"
 injectGlobal`
 body {
   font-family: 'Montserrat', sans-serif;
+  @font-face {
+    font-family: 'museo900';
+    src: url('museo900-regular-webfont.woff2') format('woff2'),
+         url('museo900-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
   
   * {
     box-sizing: border-box;
   }
+  &::-webkit-scrollbar {
+    width: 0px;
 }
 `;
 
@@ -31,6 +40,7 @@ export const FlexRow = Flex.extend`
   flex-flow: row;
   width: 100%;
   justify-content: ${props => props.justify};
+  align-items: ${props => props.align};
 `;
 
 export const FlexColumn = Flex.extend`
@@ -96,15 +106,22 @@ font-weight: 100;
 `;
 
 export const MainContentWrapper = FlexRow.extend`
-  width: 100vh;
+  height: 100vh;
   background-color: ${darkWhite};
   width: 100%;
+  &::-webkit-scrollbar {
+    width: 0px;
 `;
 
 export const ListWrapper = FlexColumn.extend`
   background-color: ${lightGrey};
   color: ${black}
   width: 400px;
+  overflow-y: scroll;
+  height: 100vh;
+  &::-webkit-scrollbar {
+    width: 0px;
+}
 `;
 
 export const ListItem = FlexRow.extend`
@@ -129,16 +146,35 @@ export const ListItemTitle = FlexColumn.extend`
 `;
 
 export const ListHeader = FlexColumn.extend`
-  padding: 30px;
+position: relative;
+min-height: 100px;
+max-height: 100px;
+top: 30px;
+margin-bottom: 30px;
+  // margin-top:30px;
+  padding: 10px 30px;
   justify-content:center;
   align-items:flex-start;
+  & small {
+    margin-bottom: 20px;
+  }
 `; 
 
 export const SearchInput = styled.input`
-  width: 100%;
-  padding: 10px;
+font-family: "Montserrat", sans-serif;
+font-weight: 300;
+width: 100%;
+border: none;
+padding:15px 20px;
+height: 60px;
+font-size:20px;
+transition: 0.5s;
+border: 1px solid ${lightGrey};
+border-radius:4px;
+:focus{
   border: none;
-  font-size:15px;
+  outline: none;
+}
 `;
 
 export const MainContent = FlexColumn.extend`
@@ -146,6 +182,17 @@ export const MainContent = FlexColumn.extend`
   background-color: ${darkWhite};
   width: 100%;
   position: relative;
+  height: 100%;
+  overflow-y: scroll;
+`;
+
+export const MainContentTimer = FlexColumn.extend`
+  padding: 0 50px 50px;
+  background-color: ${darkWhite};
+  width: 100%;
+  position: relative;
+  height: 100%;
+  overflow-y: scroll;
 `;
 
 export const BoxColumn = FlexColumn.extend`
@@ -211,7 +258,6 @@ export const ContactFooter = FlexRow.extend`
   
   > div:nth-child(2){
     border-left: 1px solid black;
-    border-right: 1px solid black;
   };
 
   > div{
@@ -260,7 +306,7 @@ export const AddPic = styled.input`
 
 
 export const StyledLink = styled(Link)`
-  display:flex;
+  display:table;
   color: inherit;
   text-decoration: none;
   flex-flow: row;
@@ -269,6 +315,13 @@ export const StyledLink = styled(Link)`
   > *{
     align-self: flex-end;
   }
+`;
+
+export const ContactLink = styled(Link)`
+  font-weight: 300;
+  color: inherit;
+  text-decoration: none;
+  display:flex;
 `;
 
 export const SaveLink = styled(Link)`
@@ -281,6 +334,7 @@ margin-top: 30px;
   transition: all 150ms ease;
   cursor: pointer;
   box-shadow: 0 20px 20px -10px rgba(0,0,0,0.4);
+  text-decoration: none;
   &:hover, &:focus {
     background: darken(${red}, 10%);
     outline: 0;
@@ -317,6 +371,7 @@ margin-top: 30px;
   transition: all 150ms ease;
   cursor: pointer;
   box-shadow: 0 20px 20px -10px rgba(0,0,0,0.4);
+  font-size: 1em;
   &:hover, &:focus {
     background: darken(${red}, 10%);
     outline: 0;
@@ -449,4 +504,10 @@ export const EditorWrapper = BoxColumn.extend`
     cursor:none;
     font-weight: 300:
   }
+`;
+
+export const DataWrapper = FlexRow.extend`
+  margin:20px auto;
+  width: 40%;
+  flex-content: space-around;
 `;

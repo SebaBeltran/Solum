@@ -1,17 +1,12 @@
 import React, {Component} from "react";
-import {FlexRow, FlexColumn} from "./../lib/Base"
+import {FlexColumn} from "./../lib/Base"
 import { TaskWrapper, ColorTag, Checkbox, Label, Check, TaskIcon, IconWrapper, DateWrapper } from "./../lib/Tasks"
-import { H5, H4, P, Small  } from "./../lib/Typography";
+import { H5, Small  } from "./../lib/Typography";
 import { connect } from "react-redux"
 import {deleteTask, updateTask} from "./../../redux/reducer";
 import moment from "moment"
 
 class Task extends Component{
-  constructor(props){
-    super(props);
-
-
-  }
 
   handleChange = task => {
     console.log("active", task)
@@ -44,18 +39,9 @@ class Task extends Component{
   filteredTask = filteredTask[0]
   const {task, due_date, color_tag, tracked_time, task_id, status } = filteredTask
   
-  // const year = due_date.substring(2,4)
-  // const month = due_date.substring(5,7)
-  // const day = due_date.substring(8,10)
-
   return(
     <TaskWrapper >
-      {/* {this.props.status === "active" 
-      ? */}
-      <Checkbox type="checkbox" id="task_id" onClick={()=>this.handleChange(filteredTask)}/>
-       {/* :
-       <Checkbox type="checkbox" checked id="task_id" onClick={()=>this.handleChange(filteredTask)}/>
-      } */}
+      <Checkbox type="checkbox" id={task_id} onClick={()=>this.handleChange(filteredTask)}/>
       <Label for="task_id">
         <ColorTag color={color_tag}/>
         <Check/> 
@@ -79,7 +65,6 @@ class Task extends Component{
           </FlexColumn>
         </DateWrapper>  
         <DateWrapper> 
-          {/* <TaskIcon data-icon="&#xe060;" onClick={()=>{}}/> */}
           <TaskIcon data-icon="&#xe054;" onClick={()=>this.props.deleteTask(task_id)}/>
         </DateWrapper>  
       </IconWrapper>

@@ -1,6 +1,6 @@
-import styled, {keyframes, injectGlobal} from "styled-components";
-import {gradientRedTop, gradientRedLeft, gradientGreyLeft, falseGradientGreyLeft,red, black, blue, darkWhite, lightGrey} from "./Colors";
-import { FlexRow, FlexColumn, ContactFront, ListItem } from "./Base"
+import styled from "styled-components";
+import {gradientRedLeft} from "./Colors";
+import { FlexRow, ContactFront, ListItem, ListHeader } from "./Base"
 
 export const StatisticsWrapper = FlexRow.extend`
   height: 110px;
@@ -13,6 +13,7 @@ export const StatisticsWrapper = FlexRow.extend`
   align-items: center;
   text-align: center;
   color: #fff;
+  padding: 50px 0;
   
   h3{
     line-height: 1;
@@ -35,6 +36,7 @@ export const ChartsWrapper = FlexRow.extend`
 export const Productivity = ContactFront.extend`
   min-width: 50%;
   width: 100%;
+  margin-bottom: 100px;
   h4{
     align-self: flex-start
     font-size: 20px;
@@ -90,4 +92,51 @@ export const ProjectTitleWrapper = FlexRow.extend`
 
 export const ProjectItem = ListItem.extend`
   border-right: 6px solid ${props => props.color}
+  height: 100px;
+  padding: 15px 30px;
+  display: block;
+`;
+
+export const WelcomeHeader = ListHeader.extend`
+min-height: 150px;
+max-height: 150px;
+top: 10px;
+display:block;
+margin-top: 0;
+`;
+
+export const ListDivider = styled.div`
+  height: 80px;
+  display: inline-grid;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const Check = styled.span`
+  width: 15px;
+  height: 15px;
+  display: block;
+  background-image: url('https://s3-eu-west-1.amazonaws.com/thomascullen-codepen/tick.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 1;
+  transform: scale(1.5);
+  margin-right: 10px;
+`;
+
+export const CompletedItem = ListItem.extend`
+  border-right: 6px solid ${props => props.color}
+  height: 100px;
+  padding: 15px 30px;
+  display: block;
+  opacity: 0.5;
+
+  H5 {
+    text-decoration: line-through;
+  }
+  &:hover{
+    opacity: 0.8;
+    background:none;
+    color: inherit;
+  }
 `;

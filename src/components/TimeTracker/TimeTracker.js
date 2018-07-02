@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { FlexRow, FlexColumn, Div } from './../lib/Base';
-import { TrackerWrapper, TimerWrapper, TimerButton, TimerInput, ButtonWrapper, SearchTaskList, ColorTagWrapper, DropDown, DefaultTag
-} from './../lib/TimeTracker';
+import { TrackerWrapper, TimerWrapper, TimerButton, TimerInput, ButtonWrapper, SearchTaskList, ColorTagWrapper, DropDown, DefaultTag, FilteredListItem, SimpleFilteredListWrapper} from './../lib/TimeTracker';
 import { tag_blue, tag_green, tag_lightblue, tag_orange, tag_pink, tag_red, tag_violet, tag_yellow
 } from './../lib/Colors';
 import {TagSelector, TagLabel, TagCheck, TagWrapper} from "./../lib/Projects"
@@ -9,6 +8,7 @@ import { H5, Small } from './../lib/Typography';
 import { connect } from 'react-redux';
 import { updateTask, addTask } from './../../redux/reducer';
 import moment from "moment"
+import {DropdownIn} from "./../lib/animations"
 
 
 class TimeTracker extends Component {
@@ -36,10 +36,8 @@ class TimeTracker extends Component {
 				if(currentTask[0].task_id !== nextProps.task_id){
 					this.setState({task_id: currentTask[0].task_id})
 				}
-
 			}
 		}
-		// this.set
 	}
 
 	handleInputs = (val) => {
@@ -142,11 +140,14 @@ class TimeTracker extends Component {
 	render() {
 		const mappedList = this.state.tasksList.map((task, i) => {
 			return (
-				<SearchTaskList key={i} onClick={() => this.handleSelection(task.task)}>
+        <DropdownIn>
+       
+				<FilteredListItem key={i} onClick={() => this.handleSelection(task.task)}>
 					{task.task}
-				</SearchTaskList>
+				</FilteredListItem>
+        </DropdownIn>
 			);
-		});
+    });
 		return (
 			<FlexColumn>
 				<TrackerWrapper>
@@ -265,7 +266,9 @@ class TimeTracker extends Component {
 						</ButtonWrapper>
 					</FlexRow>
 				</TrackerWrapper>
-				{mappedList}
+				<SimpleFilteredListWrapper>
+					{mappedList}
+				</SimpleFilteredListWrapper>
 			</FlexColumn>
 		);
 	}

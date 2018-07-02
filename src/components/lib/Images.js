@@ -51,6 +51,7 @@ export const ClientLogoBig = ClientLogo.extend`
 export const EditClientLogo = ClientLogoBig.extend`
   // margin-left: 40px;
   margin: 0;
+  cursor: pointer;
   
 `;
 

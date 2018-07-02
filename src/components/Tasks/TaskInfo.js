@@ -6,6 +6,7 @@ import {connect} from "react-redux";
 
 import Task from "./Task"
 import TaskCompleted from "./TaskCompleted"
+import { ScaleIn } from "../lib/animations";
 
 class TaskInfo extends Component{
   constructor(){
@@ -21,14 +22,18 @@ render(){
   const mappedActive = this.props.active.map( (taskItem, i) => {
     const { task_id, status } = taskItem
     return(
+      <ScaleIn>
       <Task key={i} task_id={task_id} status={status}/>
+      </ScaleIn>
     )
   })
 
   const mappedCompleted = this.props.completed.map( (taskItem, i) => {
-    const { task, due_date, color_tag, task_id, status } = taskItem
+    const { task_id, status } = taskItem
     return(
+      <ScaleIn>
       <TaskCompleted key={i} task_id={task_id} status={status}/>
+      </ScaleIn>
     )
   })
 
@@ -42,7 +47,7 @@ render(){
         </EditMenu>
         <H4>List of Tasks</H4>
         {mappedActive}
-        <p>-------</p>
+        <P>------- COMPLETED -------</P>
         {mappedCompleted}
       </ListWrapper>
     </FlipIn>

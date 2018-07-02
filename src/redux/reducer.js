@@ -10,10 +10,14 @@ const initialState = {
   project_end_date: {},
   tasks:[],
   totalTime: "",
-  weekProductivity: []
+  weekProductivity: [],
+  selectedTask:{},
+  toggleSuccessAlert: false,
+  toggleErrorAlert: false
 }
 
 const GET_USER_DATA = "GET_USER_DATA";
+
 const GET_CLIENT = "GET_CLIENT";
 const UPDATE_CLIENT = "UPDATE_CLIENT";
 const ADD_CLIENT = "ADD_CLIENT";
@@ -36,6 +40,12 @@ const GET_PRODUCTIVITY = "GET_PRODUCTIVITY"
 
 const ADD_NOTE = "ADD_NOTE"
 
+const UPDATE_USER_SETTINGS = "UPDATE_USER_SETTINGS"
+const SELECT_TASK = "SELECT_TASK"
+
+const TOGGLE_SUCCESS = "TOGGLE_SUCCESS"
+const TOGGLE_ERROR = "TOGGLE_ERROR"
+
 export function getUser() {
   let userData = axios.get("/auth/user").then(res => {
     return res.data
@@ -45,6 +55,14 @@ export function getUser() {
     payload: userData
   }
 }
+
+// export function getSettings(id){
+//   let settings = axios.get(`/api/settings/${id}`).then(res => res.date);
+//   return{
+//     type: GET_SETTINGS,
+//     payload: settings
+//   }
+// }
 
 export function getClients(id){
   let clientData = axios.get(`/api/clients/${id}`).then(res => res.data);
@@ -88,7 +106,6 @@ export function addClient(userId, body){
 
 export function getProjects(id){
   let projectsData = axios.get(`/api/projects/${id}`).then(res => res.data);
-  console.log(projectsData)
   return{
     type: GET_PROJECTS,
     payload: projectsData
@@ -136,7 +153,6 @@ export function getTasks(id){
 
 export function addTask(body){
   let updatedTaskList = axios.post("/api/tasks", body).then(res => res.data);
-  console.log("add ", body)
   return{
     type: ADD_TASK,
     payload: updatedTaskList
@@ -152,7 +168,6 @@ export function deleteTask(taskId){
 }
 
 export function updateTask(body){
-  console.log("update ", body)
   let updatedTask = axios.put(`/api/tasks/${body.task_id}`, body).then(res => res.data);
   return{
     type: UPDATE_TASK,
@@ -181,6 +196,35 @@ export function addNote(body){
   return{
     type: ADD_NOTE,
     payload: notes
+  }
+}
+
+export function updateSettings(body){
+  let settings = axios.put(`/api/settings/${body.user_id}`, body).then(res => res.data)
+  return{
+    type: UPDATE_USER_SETTINGS,
+    payload: settings
+  }
+}
+
+export function selectTask(body){
+  return{
+    type: SELECT_TASK,
+    payload:body
+  }
+}
+
+export function toggleSuccess(val){
+  return {
+    type: TOGGLE_SUCCESS,
+    payload: val
+  }
+}
+
+export function toggleError(val){
+  return {
+    type: TOGGLE_ERROR,
+    payload: val
   }
 }
 
@@ -220,9 +264,18 @@ export default function reducer(state = initialState, action){
       return Object.assign({}, state, {tasks: action.payload});
     case GET_TIME + "_FULFILLED":      
       return Object.assign({}, state, {totalTime: action.payload});
-
     case GET_PRODUCTIVITY + "_FULFILLED":      
       return Object.assign({}, state, {weekProductivity: action.payload});
+    case UPDATE_USER_SETTINGS + "_FULFILLED":
+      return Object.assign({}, state, {user: action.payload});
+    case SELECT_TASK:
+      return Object.assign({}, state, {selectedTask: action.payload })
+    case TOGGLE_SUCCESS:
+      return Object.assign({}, state, {toggleSuccessAlert: action.payload })
+    case TOGGLE_ERROR:
+    console.log("hit")
+      return Object.assign({}, state, {toggleErrorAlert: action.payload })
+
 
     default:
     return state;

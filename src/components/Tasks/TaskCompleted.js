@@ -45,7 +45,7 @@ class Task extends Component{
   const {task, due_date, color_tag, tracked_time, task_id, status } = filteredTask
   return(
     <TaskWrapper>
-    <Checkbox type="checkbox" id="task_id" checked onClick={()=>this.handleChange(filteredTask)}/>
+    <Checkbox type="checkbox" id={task_id} checked onClick={()=>this.handleChange(filteredTask)}/>
       <Label for="task_id">
         <ColorTag color={color_tag}/>
         <Check/> 

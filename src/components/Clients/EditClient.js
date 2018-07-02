@@ -6,7 +6,6 @@ import { EditClientLogo} from "./../lib/Images";
 import { connect } from "react-redux";
 import {updateClient, deleteClient} from "./../../redux/reducer";
 import S3FileUpload from 'react-s3';
-import { uploadFile } from 'react-s3';
 require('dotenv').config()
 
 const {REACT_APP_AWSAccessKeyId, REACT_APP_AWSSecretKey} = process.env 
