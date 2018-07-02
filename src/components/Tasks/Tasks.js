@@ -101,7 +101,7 @@ class Tasks extends Component {
         <ListWrapper>
           <ListHeader>
             <SearchInput value={this.state.searchInput} onChange={(e)=>this.handleSearch(e.target.value)}/>
-            <Small lineH="2.5">Search projects</Small>
+            <Small lineH="2.5">Search Orojects</Small>
           </ListHeader>
           {mappedProject}
         </ListWrapper>
