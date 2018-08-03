@@ -11,6 +11,8 @@ import AddTask from './AddTask';
 import TimeTracker from "./../TimeTracker/TimeTracker"
 import {SlideToRight} from "./../lib/animations";
 import TimeTrackerDashboard from '../TimeTracker/TimeTrackerDashboard';
+//var shortid = require("shortid")
+import shortid from "shortid"
 // import TimeTrackerDashboard from '../TimeTracker/TimeTrackerDashboard';
 
 
@@ -77,7 +79,7 @@ class Tasks extends Component {
     let mappedProject = this.state.projectsList.map((project, i) => {
       const {project_id, project_name, estimated_hours, tracked_time, start_date, end_date, color_tag} = project;
       return(
-        <StyledLink key={i} to={`/user/tasks/${project_id}`} onClick={()=>{this.props.currentProject(project_id)}}>
+        <StyledLink key={shortid.generate()} to={`/user/tasks/${project_id}`} onClick={()=>{this.props.currentProject(project_id)}}>
           <SlideToRight>
         <ProjectItem  id={project_id} project={project} color={color_tag}>
           <FlexColumn>

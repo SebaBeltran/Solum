@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { ContactFront, FlipIn } from "./../lib/Base";
+import { ContactFront, FlipIn, SaveBtn } from "./../lib/Base";
 import { FormWrapper, InputWrapper, EditInput, ContactTextArea } from "./../lib/Inputs";
 import { H4, H5, Label } from './../lib/Typography';
 import {connect} from "react-redux";
@@ -56,8 +56,8 @@ class ContactForm extends Component{
 							<ContactTextArea value={this.state.message} rows="6" name="message" onChange={this.handleInputs} />
             </InputWrapper>
           </FormWrapper>  
+        <SaveBtn onClick={() => this.sendEmail(this.props.client.email, this.state.email, this.state.message, this.props.user.user_name)}> send </SaveBtn>
         </ContactFront>
-        <button onClick={() => this.sendEmail(this.props.client.email, this.state.email, this.state.message, this.props.user.user_name)}> send </button>
       </FlipIn>      
     )
    }

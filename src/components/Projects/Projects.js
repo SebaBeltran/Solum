@@ -9,7 +9,7 @@ import EditProject from "./EditProject";
 import ProjectInfo from './ProjectInfo';
 import { getUser, getClients, getProjects, currentProject } from "./../../redux/reducer";
 import AddProject from './AddProject';
-import TimeTracker from "./../TimeTracker/TimeTracker"
+import TimeTracker from "./../TimeTracker/TimeTrackerDashboard"
 import {SlideToRight} from "./../lib/animations";
 
 class Projects extends Component {

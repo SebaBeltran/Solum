@@ -85,7 +85,6 @@ class TimeTracker extends Component {
 		let currentTime = this.state.time;
 		const {task_id, d_date, time, trackingTask, color_tag} = this.state
 		if(!this.state.project_id){
-      alert("fdsf")
       this.props.toggleError(true)
       setTimeout(()=> this.props.toggleError(false), 3000)
     } else{

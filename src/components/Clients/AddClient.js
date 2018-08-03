@@ -5,8 +5,8 @@ import { H1, H2, H3, H4, H5, H6, P, Small, Label } from './../lib/Typography';
 import { EditClientLogo} from './../lib/Images';
 import { connect } from 'react-redux';
 import { addClient } from './../../redux/reducer';
-import S3FileUpload from 'react-s3';
-require('dotenv').config()
+import S3ClientUpload from 'aws-s3';
+
 
 const {REACT_APP_AWSAccessKeyId, REACT_APP_AWSSecretKey} = process.env 
 const config = {
@@ -33,7 +33,7 @@ class AddClient extends Component {
 
   upload = e => {
 		console.log(e.target.files[0])
-    S3FileUpload.uploadFile(e.target.files[0], config)
+    S3ClientUpload.uploadFile(e.target.files[0], config)
       .then(data => this.setState({selectedImg: data.location}))
       .catch( err => console.log(err))
 
@@ -45,6 +45,8 @@ class AddClient extends Component {
 	};
 
 	addClient = () => {
+		console.log(this.state)
+		this.props.addClient(this.props.user.id, this.state);
 		this.setState({
 			selectedImg: null,
 			first_name: '',
@@ -54,7 +56,6 @@ class AddClient extends Component {
 			email: '',
 			phone: ''
 		});
-		this.props.addClient(this.props.user.id, this.state);
 	};
 	render() {
 		const { first_name, last_name, pos, company, email, phone, selectedImg } = this.state;

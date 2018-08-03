@@ -58,7 +58,7 @@ border-radius:4px;
 `;
 
 export const DatesWrapper = FlexRow.extend`
-  justify-content: space-between
+  justify-content: space-between;
 `;
 
 export const RateWrapper = styled.div`

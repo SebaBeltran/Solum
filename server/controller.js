@@ -25,9 +25,9 @@ module.exports = {
 
   addClient: (req, res) =>{
     const db = req.app.get("db");
-    const {first_name, last_name, pos, company, email, phone, user_id, client_pic} = req.body;
+    const {first_name, last_name, pos, company, email, phone, user_id, selectedImg} = req.body;
 
-    db.add_client([first_name, last_name, pos, company, email, phone, user_id, client_pic])
+    db.add_client([first_name, last_name, pos, company, email, phone, user_id, selectedImg])
     .then(clients => res.status(200).send(clients))
     .catch(()=>res.status(500).send())
   },

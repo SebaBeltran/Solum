@@ -1,5 +1,5 @@
 import styled, {keyframes, injectGlobal} from "styled-components";
-import {gradientRedTop, gradientRedLeft, gradientGreyLeft, falseGradientGreyLeft,red, black, blue, darkWhite, lightGrey} from "./Colors";
+import {gradientRedTop, red, black, darkWhite, lightGrey} from "./Colors";
 import {Link} from "react-router-dom"
 
 

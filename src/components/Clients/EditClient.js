@@ -5,8 +5,7 @@ import { H5, Label  } from "./../lib/Typography";
 import { EditClientLogo} from "./../lib/Images";
 import { connect } from "react-redux";
 import {updateClient, deleteClient} from "./../../redux/reducer";
-import S3FileUpload from 'react-s3';
-require('dotenv').config()
+import S3ClientUpload from 'aws-s3';
 
 const {REACT_APP_AWSAccessKeyId, REACT_APP_AWSSecretKey} = process.env 
 const config = {
@@ -33,7 +32,7 @@ class EditClient extends Component{
   }
 
   upload = e => {
-    S3FileUpload.uploadFile(e.target.files[0], config)
+    S3ClientUpload.uploadFile(e.target.files[0], config)
       .then(data => this.setState({selectedImg: data.location}))
       .catch( err => console.log(err))
 

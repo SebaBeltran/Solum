@@ -4,7 +4,7 @@ import { FormWrapper, InputWrapper, EditInput, FormImgWrapper, EditRateWrapper, 
 import { H4, H5, Label } from './../lib/Typography';
 import { connect } from "react-redux";
 import { EditClientLogo} from './../lib/Images';
-import S3FileUpload from 'react-s3';
+import S3ClientUpload from 'aws-s3';
 import {updateSettings} from "./../../redux/reducer"
 
 const {REACT_APP_AWSAccessKeyId, REACT_APP_AWSSecretKey} = process.env 
@@ -28,7 +28,7 @@ class EditSettings extends Component{
   }
 
 	upload = e => {
-    S3FileUpload.uploadFile(e.target.files[0], config)
+    S3ClientUpload.uploadFile(e.target.files[0], config)
       .then(data => this.setState({profile_img: data.location}))
       .catch( err => console.log(err))
   }
