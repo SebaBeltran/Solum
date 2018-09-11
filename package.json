@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "animated-styled-components": "^0.5.4",
+    "asyncawait": "^1.0.7",
     "aws-s3": "^1.5.5",
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",

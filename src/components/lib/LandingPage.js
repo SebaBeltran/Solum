@@ -1,8 +1,5 @@
-import styled, {keyframes} from "styled-components";
-import {gradientRedTop, gradientRedLeft, gradientGreyLeft, falseGradientGreyLeft,red, black, blue, darkWhite, lightGrey} from "./Colors";
-import {Link} from "react-router-dom"
-import Museo from "./../../assets/fonts/museo900-regular-webfont.ttf"
-
+import styled from "styled-components";
+import {gradientRedTop} from "./Colors";
 
 
 export const BodyWrapper = styled.div`
@@ -18,7 +15,6 @@ background-position:center;
 color: #fff;
 display: flex;
 flex-flow: column;
-// justify-content: center;
 `;
 
 export const H1 = styled.h1`
@@ -27,7 +23,6 @@ export const H1 = styled.h1`
   font-weight:900;
   margin: 60px 0 0;
   line-height:1;
-
 `;
 
 export const H2 = styled.h2`
@@ -45,7 +40,6 @@ export const H3 = styled.h3`
   text-align: center;
   margin: 10px auto 50px;
 `;
-
 
 export const Ufo = styled.img`
   width: 200px;
@@ -69,7 +63,7 @@ export const A= styled.a`
 `;
 
 export const Earth = styled.img`
-  min-width: 500px
+  min-width: 500px;
   margin: 20px auto;
 `;
 

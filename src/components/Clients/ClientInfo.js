@@ -9,7 +9,7 @@ import {deleteClient} from "./../../redux/reducer";
 class ClientInfo extends Component{
 
 render(){
-  const {first_name, last_name, pos, company, client_pic, email, phone} = this.props.client
+  const {first_name, last_name, pos, company, client_pic, phone} = this.props.client
   return(
     <FlipIn>
           <ContactFront>

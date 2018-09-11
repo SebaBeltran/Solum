@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { FlexColumn, MainContentWrapper, ListWrapper, ListHeader, SearchInput, MainContent, StyledLink} from "./../lib/Base";
 import { ListItem } from "./../lib/Clients"
-import { H1, H5, Small, P  } from "./../lib/Typography";
+import { H1, H5, Small  } from "./../lib/Typography";
 import { ClientLogo } from "./../lib/Images";
 import {connect} from "react-redux";
 import {Route} from "react-router-dom";
 import EditClient from "./EditClient";
 import ClientInfo from './ClientInfo';
-import { getUser, getClients, currentClient, search } from "./../../redux/reducer";
+import { getUser, getClients, currentClient } from "./../../redux/reducer";
 import AddClient from './AddClient';
 import ContactForm from './ContactForm';
 import {SlideToRight} from "./../lib/animations";
@@ -68,7 +68,7 @@ class Clients extends Component {
 
   render() {
     let mappedClient = this.state.clientsList.map((client, i) => {
-      const {client_id, first_name, last_name, pos, company, email, phone, client_pic} = client;
+      const {client_id, first_name, last_name, pos, company, client_pic} = client;
       return(
         <StyledLink key={i} to={`/user/clients/${client_id}`} onClick={()=>{this.props.currentClient(client_id)}}>
         <SlideToRight>

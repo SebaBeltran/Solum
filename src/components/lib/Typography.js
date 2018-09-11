@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import {gradientRedTop, gradientRedLeft, red, blue, black, lightGrey} from "./Colors";
+import {gradientRedLeft, black} from "./Colors";
 
 export const H1 = styled.h1`
   font-size: 50px;
@@ -22,6 +22,7 @@ export const H1 = styled.h1`
     margin-bottom: -10px;
   }
 `;
+
 export const H2 = styled.h2`
   font-size: 42px;
   font-weight: 100;
@@ -33,6 +34,7 @@ export const H2 = styled.h2`
   padding: ${props => props.pad};
   line-height: ${props => props.lineH};
 `;
+
 export const H3 = styled.h3`
   font-size: 36px;
   text-align: ${props => props.align};
@@ -43,6 +45,7 @@ export const H3 = styled.h3`
   padding: ${props => props.pad};
   line-height: ${props => props.lineH};
 `;
+
 export const H4 = styled.h4`
   font-size: 30px;
   text-align: ${props => props.align};
@@ -52,6 +55,7 @@ export const H4 = styled.h4`
   margin-right: ${props => props.mr};
   padding: ${props => props.pad};
 `;
+
 export const H5 = styled.h5`
   font-size: 18px;
   font-weight: 300;
@@ -63,6 +67,7 @@ export const H5 = styled.h5`
   padding: ${props => props.pad};
   line-height: ${props => props.lineH};
 `;
+
 export const H6 = styled.h6`
   font-size: 15px;
   text-align: ${props => props.align};
@@ -73,6 +78,7 @@ export const H6 = styled.h6`
   padding: ${props => props.pad};
   line-height: ${props => props.lineH};
 `;
+
 export const P = styled.p`
   font-size: 15px;
   font-weight: 300;

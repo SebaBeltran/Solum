@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { FlexColumn, MainContentWrapper, ListWrapper, Div, ListHeader, SearchInput, MainContentTimer, StyledLink, FlexRow} from "./../lib/Base";
 import {red} from "./../lib/Colors";
 import {TagColor, ProjectTitleWrapper, ProjectItem} from "./../lib/Projects"
-import { H1, H5, Small, P  } from "./../lib/Typography";
+import { H1, H5, Small  } from "./../lib/Typography";
 import {connect} from "react-redux";
 import {Route} from "react-router-dom";
 import EditProject from "./EditProject";
@@ -38,7 +38,9 @@ class Projects extends Component {
     else{
       let filtered = this.props.projects.filter(obj => {
         if( obj.project_name.toLowerCase().includes(val.toLowerCase())) {
-          return true
+          return true;
+        } else{
+          return false;
         }  
       })
       this.setState({searchInput: val, projectsList: filtered})
@@ -65,8 +67,6 @@ class Projects extends Component {
                   (num/60%60 < 10) ?
                   "0" + Math.floor(num/60%60) :
                   Math.floor(num/60%60);
-
-    let seconds = num%60 >= 10 ? num%60 : "0" + num%60;
     
     return hours + ":" + minutes;     
   }

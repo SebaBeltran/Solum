@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { ContactFront, FlipIn, SaveBtn } from "./../lib/Base";
 import { FormWrapper, InputWrapper, EditInput, ContactTextArea } from "./../lib/Inputs";
-import { H4, H5, Label } from './../lib/Typography';
+import { Label } from './../lib/Typography';
 import {connect} from "react-redux";
 
 class ContactForm extends Component{

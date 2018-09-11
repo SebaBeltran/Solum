@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { FlexColumn, MainContentWrapper, ListWrapper, Div, MainContent, FlexRow, FlipIn} from "./../lib/Base";
-import { H1, H3, H4, H5, H6, Small, P  } from "./../lib/Typography";
+import { H1, H3, H4, H5, H6, Small} from "./../lib/Typography";
 import {connect} from "react-redux";
 import { getUser, getClients, getProjects, currentProject, getTasks, getTotalTime, getProductivity, updateTask, selectTask} from "./../../redux/reducer";
 import {StatisticsWrapper, Productivity, ChartsWrapper, ProjectItem, ProjectTitleWrapper, TagColor, WelcomeHeader, ListDivider, CompletedItem, Check} from "./../lib/Dashboard";
-import TimeTracker from "./../TimeTracker/TimeTrackerDashboard"
 import { Line } from 'react-chartjs-2';
 import moment from "moment"
 import {SlideToRight, StatsSlideToRight} from "./../lib/animations"
@@ -25,21 +24,36 @@ class Dashboard extends Component {
       currentWeek:[]
     }
     this.thisWeek = []
+    
   }
 
+// componentDidMount() {
+//   this.props.getUser()
+//   .then( () => {
+//     this.props.getTasks(this.props.user.id);
+//     this.props.getClients(this.props.user.id);
+//     this.props.getProjects(this.props.user.id);
+//     this.props.getTotalTime(this.props.user.id);
+//     this.props.getProductivity(this.props.user.id)
+//     this.getWeeksForMonth(this.state.month, this.state.year)})
+//   .then( () => {
+//     this.getTotalIncome();
+//     this.getActiveTasksForToday();
+//     this.productivityArr();})
+//   }
+
 componentDidMount() {
+  this.getWeeksForMonth(this.state.month, this.state.year)
   this.props.getUser().then( async () => {
   await this.props.getTasks(this.props.user.id);
   this.props.getClients(this.props.user.id);
   this.props.getProjects(this.props.user.id);
   this.props.getTotalTime(this.props.user.id);
-  }).then( async () =>{
-    await this.props.getProductivity(this.props.user.id)
-      this.getWeeksForMonth(this.state.month, this.state.year)
+  }).then( () =>{
+    this.props.getProductivity(this.props.user.id)
       this.getTotalIncome();
       this.getActiveTasksForToday();
       this.productivityArr();
-
   })
     
   }
@@ -60,15 +74,15 @@ componentDidMount() {
     let completedToday = []
     const {date, month, year} = this.state
     let todaysTasks = this.props.tasks.filter( 
-      task=>{; if(task.due_date!== null && task.status === "active" && +task.due_date.substring(0,4) === year && +task.due_date.substring(5,7) === month+1 && +task.due_date.substring(8,10) === date){
+      task=>{ if(task.due_date!== null && task.status === "active" && +task.due_date.substring(0,4) === year && +task.due_date.substring(5,7) === month+1 && +task.due_date.substring(8,10) === date){
         return true
       }
       else if(task.status === "completed" && +task.completed_date.substring(0,4) === year && +task.completed_date.substring(5,7) === month+1 && +task.completed_date.substring(8,10) === date){
-        completedToday.push(task)
+        return completedToday.push(task)
       }
     } 
   )
-    this.setState({todaysTasks: todaysTasks, todaysCompleted: completedToday})
+    return this.setState({todaysTasks: todaysTasks, todaysCompleted: completedToday})
   }
 
   getClientName = project_id => {
@@ -125,23 +139,20 @@ componentDidMount() {
         date = parseDate[3]+ "-" + parsedMonth + "-" + parseDate[2]
       }
       if(testWeek.length < 7){
-      testWeek.push(date)
+      return testWeek.push(date)
       }
       else {
         testWeek = []
-        testWeek.push(date)
+        return testWeek.push(date)
       }
       })
       return testWeek
     })
     weeks = weeks.map(week => week.sort((a,b) => a - b))
     weeks.filter( week => {
-      week.forEach( d => {
-        +d.substring(7,9) === this.state.date  && thisWeek.length === 0 ? thisWeek = [...week] : null
-
-      })
+      return week.forEach( d => +d.substring(7,9) === this.state.date  && thisWeek.length === 0 ? thisWeek = [...week] : null)
     })
-    this.setState({currentWeek: thisWeek})
+    return this.setState({currentWeek: thisWeek})
   }
 
   timeConvert = (num) => {
@@ -167,14 +178,13 @@ componentDidMount() {
     let tasksPerDay = [0, 0, 0, 0, 0, 0, 0]
     var counts = {};
     this.props.weekProductivity.forEach(obj => dateArr.sort().push(obj.completed_date))
-    dateArr.forEach( x => { x !== null ? counts[x] = (counts[x] || 0)+1 : null });
+    dateArr.forEach( x => x !== null ? counts[x] = (counts[x] || 0)+1 : null );
     let hey =  Object.keys(counts).map(d => {return d.substring(5,6) === "0" ? d.substring(0,5) + d.substring(6) : null })
     if(this.state.currentWeek) {
       this.state.currentWeek.map( (date, i) =>{
         
-      var times = Object.values(counts)
-          hey.map( (pDate, j) => {pDate === date ? tasksPerDay.splice(i, 1, times.splice(j,1)[0]) : null
-          })
+      var times = Object.values(counts);
+      return hey.map( (pDate, j) => pDate === date ? tasksPerDay.splice(i, 1, times.splice(j,1)[0]) : null )
         })
     }
       this.setState({dates: Object.keys(counts), times: tasksPerDay, dataObj: counts})
@@ -200,7 +210,7 @@ componentDidMount() {
     let name = this.props.user.user_name ? this.props.user.user_name.split(" ") : " "
     let totalProjects = this.props.projects.length !== 0 ? this.props.projects.length : 0
     let totalTasks = this.props.tasks.length !== 0 ? this.props.tasks.length : 0
-    let completedTasks = this.props.tasks.length !== 0 ? this.props.tasks.filter(task => {if(task.status === "completed"){return task}}) : 0;
+    let completedTasks = this.props.tasks.length !== 0 ? this.props.tasks.filter(task => task.status === "completed" ? task : null) : 0;
     
     let totalTime = 0;
     this.props.tasks.map(task => totalTime += task.tracked_time);

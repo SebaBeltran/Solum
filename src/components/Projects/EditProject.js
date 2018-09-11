@@ -63,7 +63,7 @@ class EditProject extends Component{
         <option value={client_id}>{company}</option> 
       )
     })
-    const { project_name, estimated_hours, s_date, e_date, start_date, end_date, color_tag, rate} = this.state;
+    const { project_name, estimated_hours, start_date, end_date, color_tag, rate} = this.state;
     return(
       <FlipIn>
 				<ContactFront>

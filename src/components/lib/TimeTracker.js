@@ -1,9 +1,8 @@
-import styled, {keyframes, injectGlobal} from "styled-components";
-import {gradientRedTop, gradientRedLeft, gradientGreyLeft, falseGradientGreyLeft,red, black, blue, darkWhite, lightGrey} from "./Colors";
-import { FlexRow, MenuIcon, FlexColumn } from "./Base"
+import styled from "styled-components";
+import {gradientRedTop, darkWhite, lightGrey} from "./Colors";
+import { FlexRow, FlexColumn } from "./Base"
 
 export const TrackerWrapper = FlexRow.extend`
-  postition: absolute;
   right: 0;
   height: 80px;
   width: 100%;

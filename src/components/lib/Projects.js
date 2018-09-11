@@ -1,5 +1,5 @@
-import styled, {keyframes} from "styled-components";
-import { FlexRow, ListItem, FlexColumn } from './Base';
+import styled from "styled-components";
+import { FlexRow, ListItem} from './Base';
 
 
 export const TagWrapper = FlexRow.extend`

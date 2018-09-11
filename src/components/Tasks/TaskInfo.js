@@ -1,7 +1,7 @@
 import React, {Component} from "react";
-import { ContactFront,  ContactFooter, ContactIcon, A, EditIcon, FlipIn, EditMenu, IconLink, StyledLink, FlexRow } from "./../lib/Base";
+import { EditIcon, FlipIn, EditMenu, StyledLink} from "./../lib/Base";
 import { ListWrapper} from "./../lib/Tasks"
-import { H5, H4, P  } from "./../lib/Typography";
+import { H4, P  } from "./../lib/Typography";
 import {connect} from "react-redux";
 
 import Task from "./Task"

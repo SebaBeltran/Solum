@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { black, red, lightGrey } from "./Colors";
+import { lightGrey } from "./Colors";
 
 export const Avatar = styled.img`
   background-image: ${props => props.src};
@@ -20,7 +20,6 @@ export const ProfileImg = styled.img`
   display: grid;
   grid-template-columns: 100%;
   width: 0px; //fix Chrome bug
-  // height: 0px; //fix Chrome bug
   height: 200px;
   padding: 50px 50%;
   background-position: center;
@@ -45,14 +44,12 @@ export const ClientLogoBig = ClientLogo.extend`
   margin-top: 0px;
   padding: ${props => props.pad};
   margin-bottom: ${props => props.ml};
-  border: 8px solid ${lightGrey}  
+  border: 8px solid ${lightGrey};  
 `;
 
 export const EditClientLogo = ClientLogoBig.extend`
-  // margin-left: 40px;
   margin: 0;
   cursor: pointer;
-  
 `;
 
 

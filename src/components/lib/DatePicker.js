@@ -1,6 +1,5 @@
-import styled, {keyframes, injectGlobal} from "styled-components";
+import styled from "styled-components";
 import {FlexRow, FlexColumn} from "./Base"
-import {gradientRedTop, gradientRedLeft, gradientGreyLeft, falseGradientGreyLeft,red, black, blue, darkWhite, lightGrey} from "./Colors";
 
 export const DatePickerWrapper = styled.div`
   width:300px;
@@ -30,7 +29,7 @@ export const WeekWrapper = FlexColumn.extend`
 `;
 
 export const DayName = FlexRow.extend`
-jusify-content:center;
+justify-content:center;
 align-items:center;
 width:35px;
 height:35px;

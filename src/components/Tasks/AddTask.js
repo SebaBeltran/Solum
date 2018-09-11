@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { ContactFront, FlexColumn, FlexRow, FlipIn, SaveBtn} from './../lib/Base';
-import { FormWrapper, InputWrapper, EditInput, DateInput, SelectInput, RateWrapper } from "./../lib/Inputs";
-import { H4, H5, Label } from './../lib/Typography';
+import { FormWrapper, InputWrapper, EditInput, DateInput, SelectInput } from "./../lib/Inputs";
+import { H5, Label } from './../lib/Typography';
 import {tag_blue, tag_green, tag_lightblue, tag_orange, tag_pink, tag_red, tag_violet, tag_yellow} from "./../lib/Colors"
 import {TagSelector, TagLabel, TagCheck, TagWrapper} from "./../lib/Projects"
 import { connect } from 'react-redux';
@@ -55,11 +55,13 @@ class AddTask extends Component {
 					return(
 						<option value={project.project_id}>{project.project_name} / {company}</option> 
 					)
+				} else {
+					return null
 				}
 				})
 			)
 		})
-		const { task, project_id, due_date, color_tag } = this.state;
+		const { task, due_date } = this.state;
 		return (
 			<FlipIn>
 				<ContactFront >

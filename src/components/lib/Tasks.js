@@ -1,6 +1,6 @@
-import styled, {keyframes, injectGlobal} from "styled-components";
+import styled from "styled-components";
 import { FlexColumn, FlexRow, ContactFront} from './Base';
-import { lightGrey, darkWhite, red } from "./Colors"
+import { darkWhite, red } from "./Colors"
 
 export const ListWrapper = ContactFront.extend`
   > h4 {

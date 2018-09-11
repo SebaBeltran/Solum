@@ -37,7 +37,7 @@ class Task extends Component{
   render(){
   let filteredTask = this.props.tasks.filter(task => task.task_id === this.props.task_id)
   filteredTask = filteredTask[0]
-  const {task, due_date, color_tag, tracked_time, task_id, status } = filteredTask
+  const {task, due_date, color_tag, tracked_time, task_id } = filteredTask
   
   return(
     <TaskWrapper >

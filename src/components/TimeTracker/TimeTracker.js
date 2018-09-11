@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { FlexRow, FlexColumn, Div } from './../lib/Base';
-import { TrackerWrapper, TimerWrapper, TimerButton, TimerInput, ButtonWrapper, SearchTaskList, ColorTagWrapper, DropDown, DefaultTag, FilteredListItem, SimpleFilteredListWrapper} from './../lib/TimeTracker';
+import { FlexRow, FlexColumn} from './../lib/Base';
+import { TrackerWrapper, TimerWrapper, TimerButton, TimerInput, ButtonWrapper,  ColorTagWrapper, DropDown, DefaultTag, FilteredListItem, SimpleFilteredListWrapper} from './../lib/TimeTracker';
 import { tag_blue, tag_green, tag_lightblue, tag_orange, tag_pink, tag_red, tag_violet, tag_yellow
 } from './../lib/Colors';
-import {TagSelector, TagLabel, TagCheck, TagWrapper} from "./../lib/Projects"
-import { H5, Small } from './../lib/Typography';
+import {TagSelector, TagLabel, TagCheck} from "./../lib/Projects"
+import { H5 } from './../lib/Typography';
 import { connect } from 'react-redux';
 import { updateTask, addTask } from './../../redux/reducer';
 import moment from "moment"

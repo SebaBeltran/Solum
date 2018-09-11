@@ -1,25 +1,23 @@
 import React, { Component } from 'react';
 import { FlexColumn, MainContentWrapper, ListWrapper, Div, ListHeader, SearchInput, MainContentTimer, StyledLink, FlexRow} from "./../lib/Base";
 import {TagColor, ProjectTitleWrapper, ProjectItem} from "./../lib/Projects"
-import { H1, H5, Small, P  } from "./../lib/Typography";
+import { H1, H5, Small} from "./../lib/Typography";
 import {connect} from "react-redux";
 import {Route} from "react-router-dom";
-// import EditTask from "./EditTask";
 import TaskInfo from './TaskInfo';
 import { getUser, getClients, getProjects, currentProject, getTasks } from "./../../redux/reducer";
 import AddTask from './AddTask';
 import TimeTracker from "./../TimeTracker/TimeTracker"
 import {SlideToRight} from "./../lib/animations";
 import TimeTrackerDashboard from '../TimeTracker/TimeTrackerDashboard';
-//var shortid = require("shortid")
 import shortid from "shortid"
-// import TimeTrackerDashboard from '../TimeTracker/TimeTrackerDashboard';
+
 
 
 class Tasks extends Component {
-  constructor(){
-    super();
-
+  constructor(props){
+    super(props);
+    
     this.state = {
       searchInput: "",
       projectsList: []
@@ -27,23 +25,29 @@ class Tasks extends Component {
     this.handleSearch = this.handleSearch.bind(this)
   }
 
-
   componentDidMount() {
-    this.props.getUser();
-    this.props.getClients(this.props.user.id);
-    this.props.getProjects(this.props.user.id);
-    this.props.getTasks(this.props.user.id);
-    this.handleSearch("");
+      this.props.getClients(this.props.user.id);
+      this.props.getProjects(this.props.user.id);
+      this.props.getTasks(this.props.user.id);
+  }
+
+  componentDidUpdate(prevProps, nextProps){
+    if(prevProps.projects.length !== nextProps.projectsList.length){
+      this.setState({projectsList: prevProps.projects})
+    }
   }
 
   handleSearch(val) {
     if(!val){
-      this.setState({searchInput: "", projectsList: this.props.projects})
+      // this.setState({searchInput: "", projectsList: this.props.projects})
     }
     else{
       let filtered = this.props.projects.filter(obj => {
         if( obj.project_name.toLowerCase().includes(val.toLowerCase())) {
           return true
+        }
+        else {
+          return false;
         }  
       })
       this.setState({searchInput: val, projectsList: filtered})
@@ -77,7 +81,7 @@ class Tasks extends Component {
 
   render() {
     let mappedProject = this.state.projectsList.map((project, i) => {
-      const {project_id, project_name, estimated_hours, tracked_time, start_date, end_date, color_tag} = project;
+      const {project_id, project_name, estimated_hours, tracked_time,  color_tag} = project;
       return(
         <StyledLink key={shortid.generate()} to={`/user/tasks/${project_id}`} onClick={()=>{this.props.currentProject(project_id)}}>
           <SlideToRight>

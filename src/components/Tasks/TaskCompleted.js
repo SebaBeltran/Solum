@@ -1,17 +1,13 @@
 import React, {Component} from "react";
 import {FlexRow} from "./../lib/Base"
-import { TaskWrapper, ColorTag, Checkbox, Label, Check, TaskIcon, IconWrapper, DateWrapper } from "./../lib/Tasks"
-import { H5, H4, P, Small  } from "./../lib/Typography";
+import { TaskWrapper, ColorTag, Checkbox, Label, Check, TaskIcon, IconWrapper} from "./../lib/Tasks"
+import { H5, Small  } from "./../lib/Typography";
 import { connect } from "react-redux"
 import {deleteTask, updateTask} from "./../../redux/reducer";
 import moment from "moment"
 
 class Task extends Component{
-  constructor(props){
-    super(props);
 
-
-  }
 
   handleChange = task => {
     console.log("completed", task)
@@ -42,7 +38,7 @@ class Task extends Component{
   render(){
   let filteredTask = this.props.tasks.filter(task => task.task_id === this.props.task_id)
   filteredTask = filteredTask[0]
-  const {task, due_date, color_tag, tracked_time, task_id, status } = filteredTask
+  const {task, color_tag, tracked_time, task_id} = filteredTask
   return(
     <TaskWrapper>
     <Checkbox type="checkbox" id={task_id} checked onClick={()=>this.handleChange(filteredTask)}/>

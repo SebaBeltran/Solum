@@ -1,6 +1,6 @@
-import styled from "styled-components";
 import { FlexRow } from "./Base"
 import { black , darkWhite} from "./Colors"
+
 export const ListItem = FlexRow.extend`
   padding: 30px;
   box-sizing: border-box;

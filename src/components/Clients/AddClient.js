@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { ContactFront, FlexColumn, FlexRow, AddPic, FlipIn, SaveBtn} from './../lib/Base';
 import { FormWrapper, InputWrapper, EditInput} from "./../lib/Inputs";
-import { H1, H2, H3, H4, H5, H6, P, Small, Label } from './../lib/Typography';
+import { H5, Label } from './../lib/Typography';
 import { EditClientLogo} from './../lib/Images';
 import { connect } from 'react-redux';
 import { addClient } from './../../redux/reducer';

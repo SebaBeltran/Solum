@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import { FlexRow, ContactFront, EditIcon, FlipIn, EditMenu, ThreeDots, IconLink, DataWrapper } from "./../lib/Base";
+import { ContactFront, EditIcon, FlipIn, EditMenu, ThreeDots, IconLink, DataWrapper } from "./../lib/Base";
 import { H4, H6, P } from "./../lib/Typography";
 import { ClientLogoBig } from "./../lib/Images";
 import {connect} from "react-redux";
